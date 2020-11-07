@@ -1,0 +1,43 @@
+﻿
+@{
+    startup_website_asp.net.ViewModels.ProductViewModel product = Page.product;
+}
+<div class="single-product box-shadow">
+    <div class="product-img">
+        <a href="@Url.Action("ProductDetail","Product",new {id=product.ProductId})">
+            <img class="default-img" src="@product.MainImage" alt="#">
+            <img class="hover-img" src="~/Content/images/products/2.jpg" alt="#">
+            <span class="new">Mới</span>
+        </a>
+    </div>
+    <a class="startup box-shadow" href="/Startups/StartupDetail">
+        <img class="startup-img" src="@product.LogoUrl" alt="#">
+        <span>@product.StartupName</span>
+    </a>
+    <div class="product-content">
+		<h3><a href="@Url.Action("ProductDetail","Product",new {id=product.ProductId})" title="@product.Name">@product.Name</a></h3>
+        <div class="product-price">
+            <span>@product.Price đ</span>
+            <div class="product-meta">
+                <div><span class="count-number-@product.ProductId">@product.likeNumber</span> lượt thích</div>
+                <div>@product.wardName</div>
+            </div>
+        </div>
+    </div>
+    <div class="button-head">
+        <div class="product-action mx-auto">
+            @if (@product.IsLike == true)
+            {
+                <a data-id="@product.ProductId" class="btn-addProductToFivoriteProduct"><i class="product-like-@product.ProductId fas fa-heart"></i><span class="tooltip-@product.ProductId">Bỏ thích</span></a>
+
+            }
+            else
+            {
+                <a data-id="@product.ProductId" class="btn-addProductToFivoriteProduct"><i class="product-like-@product.ProductId far fa-heart"></i><span class="tooltip-@product.ProductId">Yêu thích</span></a>
+            }
+            <a title="Cart" href="#" data-id="@product.ProductId" class="btn-addProductToCard"><i class="ti-shopping-cart"></i><span>Thêm vào giỏ</span></a>
+            <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i class=" ti-eye"></i><span>Xem nhanh</span></a>
+
+        </div>
+    </div>
+</div>

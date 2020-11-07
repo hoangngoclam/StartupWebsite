@@ -1,0 +1,84 @@
+﻿@model IEnumerable<startup_website_asp.net.Models.EF.Gift>
+@{
+	ViewBag.Title = "Danh Sách Quà Tặng";
+	Layout = "~/Areas/Startup/Views/Shared/_Layout.cshtml";
+}
+<div class="page-header">
+	<div class="row align-items-end">
+		<div class="col-lg-8">
+			<div class="page-header-title">
+				<i class="ik ik-gift bg-blue"></i>
+				<div class="d-inline">
+					<h5>Quản lý quà tặng</h5>
+					<p>Thêm, chỉnh sửa quà tặng</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-4">
+			<nav class="breadcrumb-container" aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item">
+						<a href="@Url.Action("ListGift","StartupGift")"><i class="ik ik-home"></i></a>
+					</li>
+					<li class="breadcrumb-item active">
+						Quản lý quà tặng
+					</li>
+				</ol>
+			</nav>
+		</div>
+	</div>
+</div>
+
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="card">
+			<div class="card-header justify-content-between">
+				<h3>Danh sách quà tặng</h3>
+				<a href="@Url.Action("CreateGift","StartupGift")" class="btn btn-primary">Thêm quà tặng</a>
+			</div>
+
+			<div class="card-body">
+				<table id="data_table" class="table">
+					<thead>
+						<tr>
+							<th>STT</th>
+							<th>Tên quà tặng</th>
+							<th class="nosort">Hình ảnh</th>
+							<th>Giá</th>
+							<th>Số lượng</th>
+							<th class="nosort">Thao tác</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach (var item in Model)
+						{
+						<tr id="item-@item.GiftId">
+							<td></td>
+							<td>@item.Name</td>
+							<td><img src="@item.ImageUrl" alt="Startup website" class="img-fluid img-30"></td>
+							<td>@item.price</td>
+							<td>@item.Quality</td>
+							<td>
+								<a href="@Url.Action("EditGift","StartupGift",new { id=item.GiftId})"><i class="ik ik-edit f-16 mr-15 text-green"></i></a>
+								<a href="#" class="delete-startup" data-id="@item.GiftId"><i class="ik ik-trash-2 f-16 text-red"></i></a>
+							</td>
+						</tr>
+						}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+@section script{
+	<script>
+		$('.delete-startup').click(function (e) {
+			e.preventDefault();
+			deleteRecord("POST", "/Startup/StartupGift/DeleteGift", { id: this.dataset.id })
+		})
+	</script>
+	<script src="~/Content/js/Common/actionTable.js"></script>
+
+}

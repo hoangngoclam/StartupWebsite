@@ -1,0 +1,48 @@
+﻿
+@{ 
+    startup_website_asp.net.Models.EF.Product product = Page.product;
+    var productliked = Page.productLiked;
+}
+<div class="single-product box-shadow">
+	<div class="product-img">
+		<a href="@Url.Action("ProductDetail","Product",new {id=product.ProductId})">
+			<img class="default-img" src="@product.MainImage" alt="#">
+			@*@if (product.SubImages != null)
+			{
+				<img class="hover-img" src="@product.SubImages[1]" alt="#">
+			}*@
+			
+			@*<span class="new">Mới</span>*@
+		</a>
+	</div>
+	<a class="startup box-shadow" href="@Url.Action("StartupDetail","Startups",new {id=product.Startup.StartupId})">
+		<img class="startup-img" src="@product.Startup.LogoUrl" alt="#">
+		<span>@product.Startup.Name</span>
+	</a>
+	<div class="product-content">
+		<h3><a href="@Url.Action("ProductDetail","Product",new {id=product.ProductId})" title="@product.Name">@product.Name</a></h3>
+		<div class="product-price">
+			<span>@(product.Price.Value.ToString("N0")) đ</span>
+			<div class="product-meta">
+				<div><span class="count-number-@product.ProductId">@product.ViewCount</span> lượt thích</div>
+				<div>@product.Startup.ProvinceName</div>
+			</div>
+		</div>
+	</div>
+	<div class="button-head">
+		<div class="product-action mx-auto">
+			@if (productliked == true)
+			{
+				<a data-id="@product.ProductId" class="btn-addProductToFivoriteProduct"><i class="product-like-@product.ProductId fas fa-heart"></i><span class="tooltip-@product.ProductId">Bỏ thích</span></a>
+
+			}
+			else
+			{
+				<a data-id="@product.ProductId" class="btn-addProductToFivoriteProduct"><i class="product-like-@product.ProductId far fa-heart"></i><span class="tooltip-@product.ProductId">Yêu thích</span></a>
+			}
+			<a title="Cart" href="#" data-id="@product.ProductId" class="btn-addProductToCard"><i class="ti-shopping-cart"></i><span>Thêm vào giỏ</span></a>
+			@*<a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i class=" ti-eye"></i><span>Xem nhanh</span></a>*@
+
+		</div>
+	</div>
+</div>

@@ -1,0 +1,109 @@
+﻿@model IEnumerable<startup_website_asp.net.Models.EF.StartupCategory>
+
+@{
+	ViewBag.Title = "Danh Sách Danh Mục";
+	Layout = "~/Areas/Startup/Views/Shared/_Layout.cshtml";
+}
+<div class="page-header">
+	<div class="row align-items-end">
+		<div class="col-lg-8">
+			<div class="page-header-title">
+				<i class="ik ik-inbox bg-blue"></i>
+				<div class="d-inline">
+					<h5>Danh mục sản phẩm trong Startup</h5>
+					<p>Thêm, chỉnh sửa danh mục sản phẩm trong Startup</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-4">
+			<nav class="breadcrumb-container" aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item">
+						<a href="@Url.Action("Index","Home")"><i class="ik ik-home"></i></a>
+					</li>
+					<li class="breadcrumb-item active">
+						<a href="@Url.Action("ListStartupCategory","StartupCategory")">Danh sách danh mục</a>
+					</li>
+				</ol>
+			</nav>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<div class="card">
+			<div class="card-header justify-content-between">
+				<h3>Danh sách danh mục</h3>
+				<a class="btn btn-primary" href="@Url.Action("CreateStartupCategory","StartupCategory")">Thêm danh mục</a>
+			</div>
+
+			<div class="card-body">
+				<table id="data_table" class="table">
+					<thead>
+						<tr>
+							<th>STT</th>
+							<th>Tên danh mục</th>
+							<th class="nosort">Trạng thái</th>
+							<th class="nosort">Thao tác</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach (var item in Model)
+						{
+							<tr id="item-@item.StartupCategoryId">
+								<td></td>
+								<td>@item.Name</td>
+								<td>
+									<div class="btn-group float-md-left mr-1 mb-1">
+										<button class="btn-status btn " id="status-@item.StartupCategoryId" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											@Html.DisplayFor(modelItem => item.Status)
+											<i class="ik ik-chevron-down mr-0 align-middle"></i>
+										</button>
+										<div class="dropdown-menu">
+											<a class="dropdown-item" data-id="@item.StartupCategoryId" data-type="Ẩn" href="#">Ẩn</a>
+											<a class="dropdown-item" data-id="@item.StartupCategoryId" data-type="Hiện" href="#">Hiện</a>
+										</div>
+									</div>
+								</td>
+								<td>
+									<div class="table-actions">										
+										<a href="@Url.Action("EditStartupCategory","StartupCategory", new { id =@item.StartupCategoryId})"><i class="ik ik-edit-2"></i></a>
+										<a href="#" class="delete-startup" data-id="@item.StartupCategoryId"><i class="ik ik-trash-2"></i></a>
+									</div>
+								</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+@section script{
+	<script>
+		function showSuccessToast(type, message) {
+        'use strict';
+        $.toast({
+            heading: type,
+            text: message,
+            showHideTransition: 'slide',
+            icon: type,
+            loaderBg: '#f96868',
+            position: 'top-right'
+        })
+    };
+		$('.dropdown-item').click(function (e) {
+            e.preventDefault();
+			editStatus("POST","/Startup/StartupCategory",{ id: this.dataset.id, Status: this.dataset.type })
+        })
+        $('.delete-startup').click(function (e) {
+            e.preventDefault();
+            deleteRecord("POST","/Startup/StartupCategory/Delete",{ id: this.dataset.id})
+        })
+	
+	</script>
+
+	<script src="~/Content/js/Common/actionTable.js"></script>
+}

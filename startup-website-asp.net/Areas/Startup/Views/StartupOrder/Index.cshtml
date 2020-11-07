@@ -1,0 +1,88 @@
+﻿@model IEnumerable<startup_website_asp.net.Models.EF.Order>
+
+@{
+    ViewBag.Title = "Danh Sách Đơn Hàng";
+    Layout = "~/Areas/Startup/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Quản lý đơn hàng</h1>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header justify-content-between">
+                <h3>Danh sách Đơn hàng</h3>
+            </div>
+            <div class="card-body">
+                <table id="data_table" class="table">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Tên khách hàng</th>
+                            <th>PhoneNumber</th>
+                            <th>Tên người nhận</th>
+                            <th>Dùng thử</th>
+                            <th>Trạng thái</th>
+                            <th>Tổng giá</th>
+                            <th class="nosort">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr id="item-@item.OrderId">
+                                <td></td>
+                                <td>@item.Customer.Name</td>
+                                <td>
+                                    @item.PhoneNumber
+                                </td>
+                                <td>
+                                    @item.Name
+                                </td>
+                                <td>
+                                    @item.IsTrial
+                                </td>
+                                <td>
+                                    <div class="btn-group float-md-left mr-1 mb-1">
+                                        <button class="btn-status btn " id="status-@item.OrderId" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            @Html.DisplayFor(modelItem => item.Status)
+                                            <i class="ik ik-chevron-down mr-0 align-middle"></i>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" data-id="@item.OrderId" data-type="ChuaDuyet" href="#">Chưa duyệt</a>
+                                            <a class="dropdown-item" data-id="@item.OrderId" data-type="DaDuyet" href="#">Đã duyệt</a>
+                                            <a class="dropdown-item" data-id="@item.OrderId" data-type="DaGiao" href="#">Đã giao</a>
+                                            <a class="dropdown-item" data-id="@item.OrderId" data-type="DaHuy" href="#">Đã hủy</a>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    @item.TotalPrice
+                                </td>
+                                <td>
+                                    <div class="table-actions">
+                                        <a href="@Url.Action("OrderDetails","StartupOrder",new { id=@item.OrderId})"><i class="ik ik-grid"></i></a>
+                                        @*<a href="@Url.Action("OrderEdit","StartupOrder",new { id=@item.OrderId})"><i class="ik ik-edit-2"></i></a>
+                                            <a href="#" class="delete-startup" data-id="@item.OrderId"><i class="ik ik-trash-2"></i></a>*@
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+@section script{
+    <script>
+        $('.delete-startup').click(function (e) {
+            e.preventDefault();
+            deleteRecord("POST", "/Startup/startupOrder/OrderDelete", { id: this.dataset.id })
+        })
+        $('.dropdown-item').click(function (e) {
+            e.preventDefault();
+            editStatus("POST", "/Startup/startupOrder/UpdateOrderStatus", { id: this.dataset.id, status: this.dataset.type })
+        })
+    </script>
+}

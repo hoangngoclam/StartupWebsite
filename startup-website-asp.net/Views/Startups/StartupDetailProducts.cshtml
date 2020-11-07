@@ -1,0 +1,169 @@
+﻿
+@{
+	ViewBag.Title = "Danh Sách Sản Phẩm";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+	var startup = ViewBag.startup;
+	var categories = ViewBag.categories;
+	var productList = ViewBag.productList;
+}
+@section css{
+	<link href="~/Content/css/Pages/StartupDetail.css" rel="stylesheet" />
+		<link href="~/Content/css/components/product-card.css" rel="stylesheet" />
+}
+
+<div class="startup-page">
+	<div class="startup-page-header">
+		<img src="@startup.CoverUrl" alt="startup-cover" />
+		<div class="cover-overlay">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-4 offset-lg-3">
+						<h1>@startup.Name</h1>
+						<div>
+							<span>@@hellostartup</span>&nbsp;•&nbsp;
+							<span><i class="ti-location-pin"></i>&nbsp;@startup.Address</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="startup-info">
+			<div class="container">
+				<div class="row align-items-center">
+					<div class="startup-logo-wrapper col-lg-3">
+						<div class="startup-logo">
+							<img src="@startup.LogoUrl" alt="startup-logo" />
+						</div>
+					</div>
+					<div class="startup-desc col-lg-4">
+						<p>
+							@startup.Slogan
+						</p>
+					</div>
+					<div class="startup-meta col-lg-3">
+						@*<div>
+			<b>5.0</b>
+			<span>Stars</span>
+		</div>*@
+						@*<div>
+							<b></b>
+							<span>lượt đăng ký</span>
+						</div>
+						<div>
+							<b>@startup.ProductNumber</b>
+							<span>Sản phẩm</span>
+						</div>*@
+					</div>
+					@*<div class="col-lg-2">
+						<button class="btn btn-primary">Theo dõi</button>
+					</div>*@
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+	<div class="startup-menu">
+		<div class="container">
+			<ul class="startup-menu-list">
+				<li class="startup-menu-item ">
+					<a href="/Startups/StartupDetail/@startup.StartupId">Giới thiệu</a>
+				</li>
+				<li class="startup-menu-item active">
+					<a href="/Startups/StartupDetailProducts/@startup.StartupId">Sản phẩm</a>
+				</li>
+				@*<li class="startup-menu-item">
+					<a href="/Startups/StartupDetailBlogs/@startup.StartupId">Blog</a>
+				</li>*@
+			</ul>
+		</div>
+	</div>
+	<div class="startup-content">
+		<section class="shop">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-3 col-md-4 col-12">
+						<div class="shop-sidebar">
+							<!-- Single Widget -->
+							<div class="single-widget category">
+								<h3 class="title">Danh mục sản phẩm</h3>
+								<ul class="categor-list">
+									@foreach (var category in categories)
+									{
+										<li>
+											<a href="@Url.Action("StartupDetailProducts","Startups",new { id=startup.StartupId,categoryId=category.StartupCategoryId })">
+												@category.Name
+											</a>
+										</li>
+									}
+									
+								</ul>
+							</div>
+							<!--/ End Single Widget -->
+							<!-- Shop By Price -->
+							@*<div class="single-widget range">
+								<h3 class="title">Shop by Price</h3>
+								<div class="price-filter">
+									<div class="price-filter-inner">
+										<div id="slider-range" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"><div class="ui-slider-range ui-widget-header ui-corner-all" style="width: 28.4%; left: 24%;"></div><span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 24%;"></span><span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 50%;"></span><div class="ui-slider-range ui-widget-header ui-corner-all" style="width: 26%; left: 24%;"></div></div>
+										<div class="price_slider_amount">
+											<div class="label-input">
+												<span>Range:</span><input type="text" id="amount" name="price" placeholder="Add Your Price">
+											</div>
+										</div>
+									</div>
+								</div>
+								<ul class="check-box-list">
+									<li>
+										<label class="checkbox-inline" for="1"><input name="news" id="1" type="checkbox">$20 - $50<span class="count">(3)</span></label>
+									</li>
+									<li>
+										<label class="checkbox-inline" for="2"><input name="news" id="2" type="checkbox">$50 - $100<span class="count">(5)</span></label>
+									</li>
+									<li>
+										<label class="checkbox-inline" for="3"><input name="news" id="3" type="checkbox">$100 - $250<span class="count">(8)</span></label>
+									</li>
+								</ul>
+							</div>*@
+							<!--/ End Shop By Price -->
+
+						</div>
+					</div>
+					<div class="col-lg-9 col-md-8 col-12">
+						<div class="row">
+							<div class="col-12">
+								<!-- Shop Top -->
+								<div class="shop-top">
+									<ul class="view-mode">
+										<li class="active"><a href="shop-grid.html">Mới nhất</a></li>
+										<li><a href="shop-list.html">Bán chạy</a></li>
+										<li><a href="shop-list.html">Lượt xem</a></li>
+										<li><a href="shop-list.html">Giá</a></li>
+									</ul>
+								</div>
+								<!--/ End Shop Top -->
+							</div>
+						</div>
+						<div class="row">
+							@foreach (var productItem in productList)
+							{
+							<div class="col-xl-4 col-lg-4 col-md-6 col-12">
+								@RenderPage("~/Views/Shared/Components/ProductListItem.cshtml", new { product = productItem })
+							</div>
+							}
+						</div>
+						<div class="pagination">
+							<ul class="pagination-list">
+								<li><a href="#"><i class="ti-arrow-left"></i></a></li>
+								<li class="active"><a href="#">1</a></li>
+								<li><a href="#">2</a></li>
+								<li><a href="#">3</a></li>
+								<li><a href="#"><i class="ti-arrow-right"></i></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+</div>

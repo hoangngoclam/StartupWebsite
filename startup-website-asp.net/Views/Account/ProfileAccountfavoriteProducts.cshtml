@@ -1,0 +1,99 @@
+﻿
+@{
+    ViewBag.Title = "Sản Phẩm Đã Thích";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var ListProducts = ViewBag.ListProducts;
+    var ListProductLikeds = ViewBag.listProductLikeds;
+}
+
+<div class="acount-area shop checkout section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-3 select-menu-account">
+                <div class="order-details">
+                    <!-- Order Widget -->
+                    <div class="single-widget">
+                        <div class="content">
+                            <div class="avata-account">
+
+                            </div>
+                            <ul class="list-menu">
+                                <a href="/Account/EditProfileAccount">
+                                    <li class="last my-account">
+                                        <p>Tài khoản của tôi</p>
+                                    </li>
+                                </a>
+                                <a href="/Account/ProfileAccountOrders">
+                                    <li class="last order">
+                                        <p>Đơn hàng</p>
+                                    </li>
+                                </a>
+                                <a href="/Account/ProfileAccountfavoriteProducts">
+                                    <li class="last product-saved">
+                                        <p style="color:#EC9513">Sản phẩm yêu thích</p>
+                                    </li>
+                                </a>
+                                <li class="last">
+
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class=" col-12 col-lg-9 col-md-9">
+                <div class="row select-menu-category">
+                    <div class="col-12 ">
+                        <!-- Shop Top -->
+                        <div class="shop-top">
+                            <ul class="view-mode">
+                                <li class="active"><a href="shop-grid.html">Mới nhất</a></li>
+                                <li><a href="shop-list.html">Bán chạy</a></li>
+                                <li><a href="shop-list.html">Lượt xem</a></li>
+                                <li><a href="shop-list.html">Giá</a></li>
+                            </ul>
+                        </div>
+                        <!--/ End Shop Top -->
+                    </div>
+                </div>
+                <div class="row">
+                    @foreach (var product in ListProducts)
+                    {
+                        bool checkProductLiked = false;
+                        foreach (var productLiked in ListProductLikeds)
+                        {
+                            if (productLiked.ProductId == product.ProductId)
+                            {
+                                checkProductLiked = true;
+                                break;
+                            }
+                        }
+                        if (checkProductLiked == true)
+                        {
+                            <div class="col-xl-4 col-lg-4 col-md-4 col-12">
+                                @RenderPage("~/Views/Shared/Components/product.cshtml", new { product = product, productLiked = true })
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col-xl-4 col-lg-4 col-md-4 col-12">
+                                @RenderPage("~/Views/Shared/Components/product.cshtml", new { product = product, productLiked = false })
+                            </div>
+                        }
+                    }
+                </div>
+                <div class="pagination">
+                    <ul class="pagination-list">
+                        <li><a href="#"><i class="ti-arrow-left"></i></a></li>
+                        <li class="active"><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#"><i class="ti-arrow-right"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

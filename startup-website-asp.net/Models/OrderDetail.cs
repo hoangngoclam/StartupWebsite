@@ -1,0 +1,46 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.Spatial;
+namespace startup_website_asp.net.Models
+{
+    [Table("ORDER.OrderDetail")]
+    public partial class OrderDetail
+    {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public OrderDetail()
+        {
+            Rates = new HashSet<Rate>();
+        }
+
+        public long Id { get; set; }
+
+        public long ProductId { get; set; }
+
+        public long OrderId { get; set; }
+
+        public int? AttributeRelationshipId { get; set; }
+
+        public int? Quality { get; set; }
+
+        public long? TotalPrice { get; set; }
+
+        [StringLength(50)]
+        public string Status { get; set; }
+
+        [Column(TypeName = "date")]
+        public DateTime? CreatedAt { get; set; }
+
+        [Column(TypeName = "date")]
+        public DateTime? UpdatedAt { get; set; }
+
+        public virtual AttributeRelationship AttributeRelationship { get; set; }
+
+        public virtual Order Order { get; set; }
+
+        public virtual Product Product { get; set; }
+
+        public virtual ICollection<Rate> Rates { get; set; }
+    }
+}

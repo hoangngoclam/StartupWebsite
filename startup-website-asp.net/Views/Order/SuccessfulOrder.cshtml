@@ -1,0 +1,21 @@
+﻿
+@{
+	ViewBag.Title = "Đặt Hàng Thành Công";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+	var sessionOrderId = ViewBag.OrderId;
+}
+@section css{
+	<link href="~/Content/css/Pages/SuccessfulOrder.css" rel="stylesheet" />    
+}
+<div class="order-success">
+	<img class="illustration" src="~/Content/images/successful-order.svg" width="200" />
+	<h3>Đặt hàng thành công</h3>
+	<p>Cảm ơn bạn đã đặt hàng</p>
+	<p class="order-id">
+		Mã đơn hàng: 
+		<span>@sessionOrderId</span>
+		<a href="@Url.Action("ProfileAccountOrders","Account",sessionOrderId)" class="view-order-link">Xem đơn hàng</a>
+	</p>
+	<a href="@Url.Action("ProductList","Product")" class="continuos-buy">Tiếp tục mua sắm</a>
+</div>
+

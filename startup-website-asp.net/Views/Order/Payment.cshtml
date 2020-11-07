@@ -1,0 +1,99 @@
+﻿@model startup_website_asp.net.ViewModels.PaymentViewModel
+@{
+	ViewBag.Title = "Thanh Toán";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+	long TotalPrice = ViewBag.TotalPrice;
+    var startupId = ViewBag.startupId;
+}
+<!-- Breadcrumbs -->
+<div class="breadcrumbs">
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="bread-inner">
+					<ul class="bread-list">
+						<li><a href="index1.html">Trang chủ<i class="ti-arrow-right"></i></a></li>
+						<li class="active"><a href="blog-single.html">Thanh toán</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End Breadcrumbs -->
+<section class="shop checkout section">
+	<div class="container">
+		<form class="form" method="post" action="@Url.Action("Payment","Order")">
+			<div class="row">
+				<div class="col-lg-8 col-12">
+					<div class="checkout-form">
+						<h2>Thông tin thanh toán</h2>
+						<p>Vui lòng điền đầy đủ thông tin nhận hàng</p>
+						<!-- Form -->
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-12">
+                                <div class="form-group">
+                                    <label>Họ và tên<span>*</span></label>
+                                    <input type="text" name="Name" value="@Model.Name" required="required"> @*placeholder="Nguyễn Văn A"*@
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-12">
+                                <div class="form-group">
+                                    <label>Số điện thoại<span>*</span></label>
+                                    <input type="number" name="PhoneNumber" value="@Model.PhoneNumber" required="required"> @*placeholder="09*****808"*@
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-12">
+                                <div class="form-group">
+                                    <label>Địa chỉ nhận hàng<span>*</span></label>
+                                    <input type="text" name="Address" value="@Model.Address" required="required"> @*placeholder="31A Trần Khánh Dư *** Đà lạt"*@
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-12">
+                                <div class="form-group">
+                                    <label>Địa chỉ email</label>
+                                    <input type="email" name="Email" value="@Model.Email"> @*placeholder="166***gmail.com"*@
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>Ghi chú của bạn</label>
+                                    <textarea name="Note" value="@Model.Note "></textarea> @*placeholder="166***gmail.com"*@
+                                </div>
+                            </div>
+                            <input type="hidden" name="startupId" value="@startupId">
+
+                        </div>
+
+						<!--/ End Form -->
+					</div>
+				</div>
+				<div class="col-lg-4 col-12">
+					<div class="order-details">
+						<!-- Order Widget -->
+						<div class="single-widget">
+							<h2>Đơn hàng của bạn</h2>
+							<div class="content">
+								<ul>
+									@*<li>Tổng giá trị sản phẩm<span>330.000 VND</span></li>
+										<li>(+) Vận chuyển<span>30.000 VND</span></li>*@
+									<li class="last">Tổng cộng<span>@TotalPrice VND</span></li>
+								</ul>
+							</div>
+						</div>
+						<!--/ End Order Widget -->
+						<!-- Button Widget -->
+						<div class="single-widget get-button">
+							<div class="content">
+								<div class="button">
+									<button class="btn">Thanh toán</button>
+								</div>
+							</div>
+						</div>
+						<!--/ End Button Widget -->
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</section>

@@ -1,0 +1,130 @@
+﻿
+@{
+    ViewBag.Title = "Chi Tiết Tài Khoản";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section style{
+    <link rel="stylesheet" href="~/Areas/Admin/Assets/plugins/select2/dist/css/select2.min.css">
+    <link rel="stylesheet" href="~/Areas/Admin/Assets/css/ProductEditScreen.css">
+}
+<div class="page-header">
+    <div class="row align-items-end">
+        <div class="col-lg-8">
+            <div class="page-header-title">
+                <i class="ik ik-inbox bg-blue"></i>
+                <div class="d-inline">
+                    <h5>Xem tài khoản</h5>
+                    <p>Chỉnh sửa thông tin tài khoản</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <nav class="breadcrumb-container" aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="@Url.Action("Index","Admin")"><i class="ik ik-home"></i></a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="@Url.Action("ListAccount","AdminAccount")">Danh sách tài khoản</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">Chi tiết tài khoản</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h3>Chỉnh sửa tài khoản</h3>
+
+            </div>
+            <div class="card-body">
+                <form class="forms-sample">
+                    <div class="form-group">
+                        <div class="row">
+                            <label class="col-md-3 col-lg-2  pr-0" for="inputName">Tên đăng nhập *</label>
+                            <input class="col-md-7 col-lg-6 form-control  ml-3 mr-3" type="text" id="inputName" placeholder="Nhập tên đăng nhập">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <label class="col-md-3 col-lg-2  pr-0" for="inputName">Mật khẩu *</label>
+                            <input class="col-md-7 col-lg-6 form-control  ml-3 mr-3" type="password" id="inputName" placeholder="Nhập mật khẩu">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <label class="col-md-3 col-lg-2  pr-0" for="inputName">Họ tên *</label>
+                            <input class="col-md-7 col-lg-6 form-control  ml-3 mr-3" type="text" id="inputName" placeholder="Nhập họ tên">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <label class="col-md-3 col-lg-2  pr-0" for="inputName">Số điện thoại *</label>
+                            <input class="col-md-7 col-lg-6 form-control  ml-3 mr-3" type="text" id="inputName" placeholder="Nhập số điện thoại">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <label class="col-md-3 col-lg-2  pr-0" for="inputName">Chức vụ *</label>
+                            <input class="col-md-7 col-lg-6 form-control  ml-3 mr-3" type="text" id="inputName" placeholder="Chức vụ">
+                        </div>
+                    </div>
+
+
+                </form>
+            </div>
+            <div class="card-footer text-right">
+                <a href="@Url.Action("ListAccount","AdminAccount")"><button type="submit" class="btn btn-dark mr-2" style="width:100px">Quay lại</button></a>
+            </div>
+        </div>
+    </div>
+</div>
+@section script{
+    <script src="~/Areas/Admin/Assets/plugins/select2/dist/js/select2.min.js"></script>
+    <script>
+        $('#sub-category').hide();
+        $('#discountOptions').hide();
+        $('#main-category li').click(() => {
+            $('#sub-category').show();
+        })
+        if ($('#checkboxDiscount').prop('checked')) {
+            $('#discountOptions').show();
+        }
+        $('#inputDescription').summernote({
+            height: 200,
+            tabsize: 2
+        });
+        $('#inputDescriptionGilf').summernote({
+            height: 100,
+            tabsize: 2
+        });
+        $(".shopCategory").select2();
+        //Delete Item
+        $('.btn-delete').on('click', function () {
+            swal({
+                title: "Xóa hình ảnh",
+                text: "Bạn có muốn xóa hình ảnh này không?",
+                icon: "warning",
+                buttons: ["Hủy", "Xóa"],
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        swal({
+                            title: "Đã xóa",
+                            text: "Hình ảnh đã được xóa thành công",
+                            icon: "success",
+                        });
+                    } else {
+                        swal("Hình ảnh chưa được xóa");
+                    }
+                });
+        });
+    </script>
+}
+
+

@@ -1,0 +1,94 @@
+﻿.startup-page-header {
+	height: 300px;
+	width: 100%;
+	position: relative;
+}
+	.startup-page-header img, .startup-logo img {
+		height: 100%;
+		width: 100%;
+		object-fit: contain;
+	}
+.cover-overlay {
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+	padding-top: 15px;
+	padding-bottom: 15px;	
+	color:#FFF;
+	z-index: 0;
+	overflow:hidden
+}
+	.cover-overlay:before {
+		content: "";
+		background: #000;
+		opacity: 0.1;
+		filter: blur(10px);
+		height: 100%;
+		width: 100%;
+		z-index: -1;
+		position:absolute;
+		bottom:0;
+	}
+.startup-info .row{
+	height:90px;
+}
+.startup-info h1 {
+	font-size: 20px;
+}
+.startup-info .startup-logo-wrapper {
+	position: relative;
+	display: flex;
+	justify-content: center;
+}
+.startup-meta {
+	display: flex;
+	justify-content: space-between;
+}
+.startup-meta > div {
+	display: flex;
+	flex-direction: column;
+}
+
+.startup-logo {
+	position:absolute;
+	bottom:-40px;
+	width:180px;
+	height:180px;
+}
+.startup-menu {
+	margin-top: 90px;
+	margin-bottom: 90px;
+	background: #fff;
+	border-bottom: 1px solid #eeeeeec2;
+	border-top: 1px solid #eeeeeec2;
+}
+.startup-menu-item{
+	display:inline-block;
+	padding:25px;
+	font-size:16px;
+	text-transform:uppercase;
+	cursor:pointer;
+	transition:all 0.2s linear;
+}
+	.startup-menu-item.active {
+		color: var(--main-color-1);
+		border-bottom: 2px solid var(--main-color-1);
+		font-weight: 600;
+	}
+	.startup-menu-item:hover {
+		color: var(--main-color-1);
+		border-bottom: 2px solid var(--main-color-1);
+	}
+
+	/*Follow Button*/
+.btn-subscribed{
+	padding-left: 20px;
+	padding-right: 20px;
+	background-color: var(--main-color-2);
+}
+.btn-subscribed:hover {
+	background-color: var(--main-color-2);
+}
+.btn-subscribed i {
+	margin-right: 5px;
+}

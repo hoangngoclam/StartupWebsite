@@ -1,0 +1,24 @@
+﻿@{ 
+    startup_website_asp.net.ViewModels.StartupViewModel startupItem = Page.modelItem;
+}
+<div class="single-startup">
+	<a href="@Url.Action("StartupDetail","Startups",new { id = startupItem.StartupId})">
+		<div class="startup-logo">
+			<img src="@startupItem.LogoUrl" alt="">
+		</div>
+        <h3 class="startup-name">
+            @startupItem.Name
+        </h3>
+		<p class="startup-desc">@startup_website_asp.net.Common.CommonFunction.LimitLength(startupItem.Description,40)<p>
+		<div class="startup-meta">
+				<div class="subscriber">
+                    <div>@startupItem.LikeNumber</div>
+					<div>lượt đăng ký</div>
+				</div>
+				<div class="amount-prd">
+                    <div>@startupItem.ProductNumber</div>
+					<div>sản phẩm</div>
+				</div>
+		</div>
+	</a>
+</div>
