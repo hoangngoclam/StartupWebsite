@@ -1,0 +1,196 @@
+﻿
+@{
+	ViewBag.Title = "Chi Tiết Đơn Hàng";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!-- Order Detail -->
+<div class="acount-area shop checkout section">
+	<div class="container">
+		<div class="row">
+			<div class="col-12 col-lg-3 select-menu-account">
+				<div class="order-details">
+					<!-- Order Widget -->
+					<div class="single-widget">
+						<div class="content">
+							<div class="avata-account">
+
+							</div>
+							<ul class="list-menu">
+								<a href="/Account/EditProfileAccount">
+									<li class="last my-account">
+										<p>Tài khoản của tôi</p>
+									</li>
+								</a>
+								<a href="/Account/ProfileAccountOrders">
+									<li class="last order">
+										<p style="color:#EC9513">Đơn hàng</p>
+									</li>
+								</a>
+								<a href="/Account/ProfileAccountfavoriteProducts">
+									<li class="last product-saved">
+										<p>Sản phẩm yêu thích</p>
+									</li>
+								</a>
+								<li class="last">
+
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-12 col-lg-9">
+				<div class="order-detail">
+					<div class="order-detail-top">
+						<a href="@Url.Action("ProfileAccountOrders","Account")">
+							<i class="ti-angle-left" aria-hidden="true"></i>
+							<span>Trở Lại</span>
+						</a>
+					</div>
+					<div class="order-detail-card">
+						<div class="order-status">
+							<span>Mã Đơn Hàng: 35443tts</span>
+							<span class="order-status-badge badge-success">Đã Giao</span>
+						</div>
+					</div>
+					<div class="order-detail-card order-status-desc">
+						<span>Đơn hàng đã hoàn thành</span>
+						<button data-toggle="modal" data-target="#reviewModal">Đánh Giá</button>
+					</div>
+					<div class="order-detail-card">
+						<h6 class="card-heading">Thông tin nhận hàng</h6>
+						<p>Nhật Ánh</p>
+						<p>0852383910</p>
+						<p>262 Mai Anh Đào, Phường 8, TP Đà Lạt</p>
+					</div>
+					<div class="order-detail-card p-0">
+						<div class="order-startup">
+							<a href="#"><img class="order-startup-logo" src="https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/9c/42/58/9c42583f-ed50-cf39-82cc-53bde6af5046/source/512x512bb.jpg" alt="" /></a>
+							<a href="#" class="order-startup-name">Biti's</a>
+						</div>
+						<div class="order-product-list">
+							<ul>
+								<li class="order-product">
+									<a href="#"><img class="" src="https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/9c/42/58/9c42583f-ed50-cf39-82cc-53bde6af5046/source/512x512bb.jpg" alt="" /></a>
+									<a href="#" class="product-name">Giày Thể Thao Nam Biti's Hunter X BKL - Midnight Black Inverted DSMH02302DEN (Đen)</a>
+									<div class="product-price">
+										<span>899,000 đ</span>
+										<span class="multiply">x</span>
+										<span>1</span>
+									</div>
+									<span class="product-total-price">899,000 đ</span>
+								</li>
+								<li class="order-product">
+									<a href="#"><img class="" src="https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/9c/42/58/9c42583f-ed50-cf39-82cc-53bde6af5046/source/512x512bb.jpg" alt="" /></a>
+									<a href="#" class="product-name">Giày Thể Thao Nam Biti's Hunter X BKL - Midnight Black Inverted DSMH02302DEN (Đen)</a>
+									<div class="product-price">
+										<span>899,000 đ</span>
+										<span class="multiply">x</span>
+										<span>1</span>
+									</div>
+									<span class="product-total-price">899,000 đ</span>
+								</li>
+							</ul>
+						</div>
+						<div class="order-money">
+							<div>
+								<span>Tổng tiền sản phẩm:</span>
+								<span class="money">2,000,000 đ</span>
+							</div>
+							<div>
+								<span>Tiền vận chuyển:</span>
+								<span class="money">30,000 đ</span>
+							</div>
+							<div>
+								<span>Tổng tiền phải trả:</span>
+								<span class="total-price money">2,030,000 đ</span>
+							</div>
+
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End Order Detail -->
+<!-- Review Modal -->
+<div class="modal fade review-modal" id="reviewModal" tabindex="-1" role="dialog" aria-labelledby="reviewModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="reviewModalLabel">Đánh Giá Sản Phẩm</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="prd-review">
+					<div class="order-product">
+						<a href="#"><img class="" src="https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/9c/42/58/9c42583f-ed50-cf39-82cc-53bde6af5046/source/512x512bb.jpg" alt=""></a>
+						<a href="#" class="product-name">Giày Thể Thao Nam Biti's Hunter X BKL - Midnight Black Inverted DSMH02302DEN (Đen)</a>
+						<div class="review-point">
+							<select>
+								<option selected="selected">1</option>
+								<option>2</option>
+							</select>
+							<span>/ 10</span>
+						</div>
+					</div>
+					<p class="mt-3">Đánh Giá Của Bạn:</p>
+					<div class="row">
+						<div class="col-12 col-lg-6">
+							<textarea id="prd-review" name="prd-review" rows="3" cols="50">
+						</textarea>
+						</div>
+						<div class="col-12 col-lg-6">
+							<ul class="review-suggest">
+								<li><a href="#">Sản phẩm tốt</a></li>
+								<li><a href="#">Rất đáng để thử</a></li>
+								<li><a href="#">Giao hàng nhanh</a></li>
+								<li><a href="#">Đóng gói chắc chắn</a></li>
+							</ul>
+						</div>
+					</div>
+					<button class="btn btn-review">Đánh Giá</button>
+				</div>
+				<hr />
+				<div class="prd-review">
+					<div class="order-product">
+						<a href="#"><img class="" src="https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/9c/42/58/9c42583f-ed50-cf39-82cc-53bde6af5046/source/512x512bb.jpg" alt=""></a>
+						<a href="#" class="product-name">Giày Thể Thao Nam Biti's Hunter X BKL - Midnight Black Inverted DSMH02302DEN (Đen)</a>
+						<div class="review-point">
+							<select>
+								<option selected="selected">1</option>
+								<option>2</option>
+							</select>
+							<span>/ 10</span>
+						</div>
+					</div>
+					<p class="mt-3">Đánh Giá Của Bạn:</p>
+					<div class="row">
+						<div class="col-12 col-lg-6">
+							<textarea id="prd-review" name="prd-review" rows="3" cols="50">
+						</textarea>
+						</div>
+						<div class="col-12 col-lg-6">
+							<ul class="review-suggest">
+								<li><a href="#">Sản phẩm tốt</a></li>
+								<li><a href="#">Rất đáng để thử</a></li>
+								<li><a href="#">Giao hàng nhanh</a></li>
+								<li><a href="#">Đóng gói chắc chắn</a></li>
+							</ul>
+						</div>
+					</div>
+					<button class="btn btn-review">Đánh Giá</button>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-outline" data-dismiss="modal">OK</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End Review Modal -->

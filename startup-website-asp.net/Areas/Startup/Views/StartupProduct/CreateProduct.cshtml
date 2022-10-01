@@ -1,0 +1,315 @@
+﻿@model startup_website_asp.net.ViewModels.ProductViewModel
+
+@{
+	ViewBag.Title = "Tạo Sản Phẩm";
+	Layout = "~/Areas/Startup/Views/Shared/_Layout.cshtml";
+}
+@section style{
+	<link rel="stylesheet" href="~/Areas/Admin/Assets/plugins/select2/dist/css/select2.min.css">
+	<link rel="stylesheet" href="~/Areas/Admin/Assets/plugins/bootstrap-tagsinput/dist/bootstrap-tagsinput.css">
+	<link rel="stylesheet" href="~/Areas/Admin/Assets/css/StartupProduct.css">
+}
+<div class="page-header">
+	<div class="row">
+		<div class="col-lg-5">
+			<div class="page-header-title">
+				<i class="ik ik-shopping-bag bg-blue"></i>
+				<div class="d-inline">
+					<h5>Quản lý sản phẩm</h5>
+					<p>Thêm, chỉnh sửa sản phẩm</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-7">
+			<nav class="breadcrumb-container" aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item">
+						<a href="../index.html"><i class="ik ik-home"></i></a>
+					</li>
+					<li class="breadcrumb-item">
+						Quản lý sản phẩm
+					</li>					
+					<li class="breadcrumb-item active" aria-current="page">Thêm sản phẩm</li>
+				</ol>
+			</nav>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		@using (Html.BeginForm("CreateProduct", "StartupProduct", FormMethod.Post, new { enctype = "multipart/form-data", id = "formCreate" }))
+		{
+			<input name="product.StartupId" type="hidden" value="@ViewBag.StartupId"/>
+			<div class="card">
+				<div class="card-header d-flex justify-content-between align-items-center">
+					<h3>Thêm sản phẩm mới</h3>
+				</div> 
+                <div class="card-body">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-group">
+                        <label for="add-product-name">Tên sản phẩm</label>
+                         ()
+                        <input type="text" name="product.name" class="form-control" id="add-product-name" placeholder="Nhập tên sản phẩm">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputName">Seo title</label>
+                        <input type="text" name="product.seotitle" class="form-control" id="inputName" placeholder="Tối ưu tìm kiếm">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputName">Danh mục sản phẩm</label>
+                        @Html.DropDownList("ProductCategoryId", null, new { @class = "form-control" })
+                    </div>
+
+
+                    <div class="form-group">
+                        <div style="margin-bottom: 1.25em;">
+                            <label>Hình ảnh</label>
+                            <div class="d-flex flex-wrap">
+                                <div class="child-wrapper" id="mainImage">
+                                    <div class="adding-box rounded">
+                                        <input type="file" onchange="onChangeUploadImage(event)" name="mainNewImage" class="image-upload" required accept="image/x-png,image/jpeg,image/jpg" />
+                                    </div>
+                                </div>
+                                <div class="subImages">
+                                    <div class="child-wrapper">
+                                        <div class="adding-box rounded">
+                                            <input type="file" onchange="onChangeUploadImage(event)" name="subNewImages" class="image-upload" accept="image/x-png,image/jpeg,image/jpg" />
+                                        </div>
+                                    </div>
+                                    <div class="child-wrapper">
+                                        <div class="adding-box rounded">
+                                            <input type="file" onchange="onChangeUploadImage(event)" name="subNewImages" class="image-upload" accept="image/x-png,image/jpeg,image/jpg" />
+                                        </div>
+                                    </div>
+                                    <div class="child-wrapper">
+                                        <div class="adding-box rounded">
+                                            <input type="file" onchange="onChangeUploadImage(event)" name="subNewImages" class="image-upload" accept="image/x-png,image/jpeg,image/jpg" />
+                                        </div>
+                                    </div>
+                                    <div class="child-wrapper">
+                                        <div class="adding-box rounded">
+                                            <input type="file" onchange="onChangeUploadImage(event)" name="subNewImages" class="image-upload" accept="image/x-png,image/jpeg,image/jpg" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <input id="subImages" name="subImages" type="hidden">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.StartupCategoryId, "Danh mục trên shop", htmlAttributes: new { @class = "control-label" })
+                        @Html.DropDownList("StartupCategoryId", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.StartupCategoryId, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group  align-items-center">
+                        <label class="control-label" for="inputPrice">Giá</label>
+                        <input type="number" name="Price" class="form-control" id="inputPrice" placeholder="Nhập giá">
+                    </div>
+                    <div class="form-group  align-items-center">
+                        <label class="control-label">Giá khuyết mãi</label>
+                        <input type="number" name="PromotionPrice" class="form-control" placeholder="Giá khuyết mãi">
+                    </div>
+                    <div class="form-group  align-items-center">
+                        <label class="control-label" for="inputAmount">Số lượng</label>
+                        <input type="number" name="Quality" class="form-control" id="inputAmount" placeholder="Nhập số lượng" value="300s">
+
+                    </div>
+
+
+                    <div class="form-group  align-items-center">
+                        <p class=" text-bold">Hàng dùng thử</p>
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox" name="isTrial" class="custom-control-input" id="checkboxTrial">
+                            <label class="custom-control-label text-normal" for="checkboxTrial">Có / Không</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="input-KeyWord" class="control-label">Từ khóa</label>
+                        <input id="input-KeyWord" class="form-control" type="text" name="KeyWord" value="" data-role="tagsinput" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="product-status">Trạng thái</label>
+                        <select class="form-control" name="Status" id="product-status">
+                            <option value="Ẩn">Ẩn</option>
+                            <option value="Hiện">Hiện</option>
+                            <option value="Nháp">Nháp</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="add-product-description" class="text-normal">Mô tả</label>
+                        <textarea name="Description" id="add-product-description" class="form-control" rows="10"> </textarea>
+                        @*<textarea name="Description"  rows="10"></textarea>*@
+                        @*<textarea id="inputDescriptionGilf" name="Description" class="form-control html-editor" rows="10"></textarea>*@
+                    </div>
+                </div>
+                    <div class="card-footer text-right">
+                        <button type="button" class="float-left btn btn-outline-warning">Ẩn sản phẩm</button>
+                        <button class="btn btn-secondary mr-2">Hủy</button>
+                        <button type="submit" class=" btn btn-dark">Thêm</button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    @section script{
+        <script src="~/Areas/Admin/Assets/plugins/select2/dist/js/select2.min.js"></script>
+        @*<script src="~/Areas/Admin/Assets/plugins/repeater/repeater.js"></script>*@
+        <script src="~/Areas/Admin/Assets/plugins/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
+        <script>
+            //Gift product
+    Array.prototype.remove = function () {
+        var what, a = arguments, L = a.length, ax;
+        while (L && this.length) {
+            what = a[--L];
+            while ((ax = this.indexOf(what)) !== -1) {
+                this.splice(ax, 1);
+            }
+        }
+        return this;
+    };
+    var x = [];
+    var arrId = [];
+    function deleteGiftItem(event) {
+        let idGiftItem = event.target.dataset.id;
+        $('#gift-item-' + idGiftItem).remove();
+        $('#input-hidden-gift-' + idGiftItem).remove();
+        x.remove(idGiftItem);
+    }
+    $(document).ready(function () {
+
+        //anhat
+        $('#checkboxDiscount').click(function () {
+            $("#discountOptions").toggle(this.checked);
+        });
+        $('#checkboxWarranty').click(function () {
+            $("#warrantyOptions").toggle(this.checked);
+        });
+        $('#attributeTags').tagsinput('items');
+        $('#inputDescription').summernote({
+            height: 200,
+            tabsize: 2
+        });
+        $(".shopCategory").select2();
+
+        //hanhml
+
+        function GetProductGift(arrId) {
+            $.ajax({
+                url: "/Startup/StartupProduct/GetProductGift",
+                type: "GET",
+                data: { idGift: $('#idGift').val() },
+                dataType: "json",
+                success: function (result) {
+                    $('#idProductGift').append(result);
+                    $("#formCreate").append("<input type='hidden' id='input-hidden-gift-" + $('#idGift').val() + "' name='GiftIdPush' value='" + $('#idGift').val() + "'>")
+                },
+                error: function (error) {
+                    console.log(error)
+                }
+            });
+            arrId.push($('#idGift').val());
+        }
+
+        $('#idGift').change(function (e) {
+            e.preventDefault();
+            var y = e.target.selectedOptions[0].value;
+            if (y != "") {
+                if (x.length == 0) {
+                    x.push(y);
+                    GetProductGift(arrId);
+                } else
+                    if (x.length != 0) {
+                        //x.push(y);
+                        let findOption = x.find(itemx => itemx === y)
+                        console.log(findOption)
+                        if (findOption == undefined) {
+                            GetProductGift(arrId);
+                            x.push(y);
+                        }
+                        else {
+                            alert("Sản phẩm đã được thêm");
+                        }
+                        var count = 0;
+                    }
+            }
+        })
+    });
+
+
+            var listSubAttribute1 = [];
+            $("#ddl-attribute-id-1").change(function (e) {
+                $.ajax({
+                    type: "GET",
+                    url: "/startup/StartupProduct/GetListSubAttribute/" + this.value,
+                    data: { AttributeId: this.value },
+                    dataType: "json",
+                    success: function (data) {
+                        $('#input-attributeId1').tagsinput('removeAll');
+                        $('#table-attribute').children().remove();
+                        let listSubAttribute1 = data.split(",");
+                        listSubAttribute1 = listSubAttribute1.map(item => {
+                            let itemSubAttr = item.split("-");
+                            return { id: itemSubAttr[0], label: itemSubAttr[1] }
+                        })
+                        //them thuoc tinh moi vo
+                        for (var itemSubAttr of listSubAttribute1) {
+                            $('#input-attributeId1').tagsinput('add', itemSubAttr.label);
+                        }
+                    },
+                    error: function (error) {
+                        console.log(error)
+                    }
+                });
+            });
+            $('#delete-attribute-1').click(function (e) {
+                e.preventDefault();
+                $('#input-attributeId1').tagsinput('removeAll');
+                $('#table-attribute').children().remove();
+            });
+
+            $('#input-attributeId1').on('beforeItemRemove', function (event) {
+                let text = event.item.replace(/\s/g, '');
+                $(`#item-table-sub-attr-${text}`).remove();
+            });
+
+            $('#apply-attribute-btn').click(function (e) {
+                e.preventDefault();
+                let price = $('#apply-attribute-price')[0].value;
+                $('.sub-item-attribute').each((index, item) => {
+                    item.value = parseInt(price);
+                })
+            })
+            $('#input-attributeId1').on('beforeItemAdd', function (event) {
+                let findItem = $('#input-attributeId1').tagsinput('items').find(item => item == event.item);
+                let text = event.item.replace(/\s/g, '');
+                if (findItem) {
+                    event.cancel = true;
+                    return;
+                }
+                else {
+                    if ($(`#item-table-sub-attr-${text}`)) {
+                        $("#table-attribute").append(`
+                                            <tr id='item-table-sub-attr-${text}'>
+                                                <td>${event.item}</td>
+                                                <td>
+                                                    <input type='number' name='SubItemPrice' class='form-control sub-item-attribute' placeholder='0' />
+                                                </td>
+                                            </tr>`
+                        )
+                    }
+                }
+
+            })
+        </script>
+
+        <script src="~/Content/js/Common/actionTable.js"></script>
+        <script src="~/Content/js/Startup/EditProduct.js"></script>
+    }
+

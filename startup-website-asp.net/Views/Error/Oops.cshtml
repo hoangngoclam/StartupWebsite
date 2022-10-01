@@ -1,0 +1,54 @@
+﻿@{
+	Layout = null;
+}
+<html>
+<head>
+	<!-- Meta Tag -->
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="copyright" content="">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- Title Tag  -->
+	<title>Lỗi</title>
+	<!-- Favicon -->
+	<link rel="icon" type="image/png" href="images/favicon.png">
+	<!-- Web Font -->
+	<link href="https://fonts.googleapis.com/css?family=Merriweather:700|Montserrat:400,500,600,700&display=swap&subset=vietnamese" rel="stylesheet">
+
+	<!-- StyleSheet -->
+	<!-- Bootstrap -->
+	<link rel="stylesheet" href="~/Content/css/bootstrap.css">
+	<link rel="stylesheet" href="~/Content/css/settings.css">
+	<!-- Eshop StyleSheet -->
+	<link rel="stylesheet" href="~/Content/css/reset.css">
+	<link rel="stylesheet" href="~/Content/style.css">
+	<link rel="stylesheet" href="~/Content/css/common.css">
+	<link rel="stylesheet" href="~/Content/css/color/color1.css">
+</head>
+<body>
+	<section class="error-page">
+		<div class="table">
+			<div class="table-cell">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-6 offset-lg-3 col-12">
+							<!-- Error Inner -->
+							<div class="error-inner">
+								<h2>@Response.StatusCode</h2>
+								<h5>@Response.StatusDescription</h5>
+								<p>Lỗi! Trang bạn đang tìm không tồn tại.</p>
+								<div class="button">
+									<a href="/" class="btn">Về trang chủ</a>
+								</div>
+							</div>
+							<!--/ End Error Inner -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+</html>
+

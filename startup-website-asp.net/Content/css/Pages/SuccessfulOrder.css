@@ -1,0 +1,25 @@
+﻿.order-success{
+	text-align:center;
+	padding-top:30px;
+}
+.illustration {
+	margin-bottom:10px;
+}
+.order-id{
+	margin-top:25px;
+	margin-bottom:25px;
+}
+.order-id span {
+	font-weight: 600;
+}
+.view-order-link{
+	color:var(--main-color-1);
+	display:block;
+}
+.continuos-buy {
+	color: #fff;
+	background: var(--main-color-1);
+	padding: 10px 20px;
+	border: none;
+	display:inline-block;
+}

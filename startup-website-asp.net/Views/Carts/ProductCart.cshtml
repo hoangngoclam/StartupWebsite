@@ -1,0 +1,148 @@
+﻿@{
+    ViewBag.Title = "Giỏ Hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var ListProductInCart = ViewBag.ListProductInCart;
+    var SumAllPriceProduct = ViewBag.SumAllPriceProduct;
+    var PriceShip = ViewBag.PriceShip;
+    var SumAllPriceProductYouPay = ViewBag.SumAllPriceProductYouPay;
+
+    var sessionCart = Session[startup_website_asp.net.Common.CommonSession.CART_SESSION];
+
+    var listStartup = ViewBag.listStartup;
+    var shipPrice = 10000;
+}
+
+<!-- Breadcrumbs -->
+<div class="breadcrumbs">
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="bread-inner">
+					<ul class="bread-list">
+						<li><a href="index1.html">Trang chủ<i class="ti-arrow-right"></i></a></li>
+						<li class="active"><a href="blog-single.html">Giỏ hàng</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End Breadcrumbs -->
+<!-- Shopping Cart -->
+<div class="shopping-cart section">
+	<div class="container">
+        <div class="row">
+            @if (ListProductInCart.Count == 0)
+            {
+                <div class="col-12 pl-0 mb-3"><div class="alert-danger p-2">Giỏ hàng trống</div></div>
+
+                <button class="btn btn-warning"style="background-color:#EC9513"><a href="~/home">Tiếp tục mua hàng</a></button>
+
+            }
+            else
+            {
+                if (sessionCart != null)
+                {
+
+                    foreach (var startup in listStartup)
+                    {
+                        var sumProduct = 0;
+                        <div class="col-12" id="cart-@startup.StartupId">
+                            <div class="order-detail-card p-0">
+                                <div class="order-startup">
+                                    <a href="#"><img class="order-startup-logo" src="@startup.LogoUrl" alt=""></a>
+                                    <a href="#" class="order-startup-name">@startup.Name</a>
+                                </div>
+                                <div class="order-product-list">
+                                    <ul>
+                                        @foreach (var cart in ListProductInCart)
+                                        {
+
+                                            if (cart.Product.StartupId == startup.StartupId)
+                                            {
+                                                <li class="order-product" id="cart-@cart.Product.ProductId-@startup.StartupId">
+                                                    <div class="image-name">
+                                                        <a href="#"><img class="" src="@cart.Product.MainImage" alt=""></a>
+                                                        <a href="#" class="product-name">@cart.Product.Name</a>
+                                                    </div>
+                                                    <div class="product-price">
+                                                        <span>@(cart.Product.Price.ToString("N0"))</span>
+                                                    </div>
+                                                    <div class="input-group quantity-input">
+                                                        <div class="button minus" onclick="MinusQuantityAndTotal(event)" data-id="@cart.Product.ProductId-@startup.StartupId">
+                                                            <button type="button" class="btn btn-primary btn-number" disabled="disabled" data-type="minus" data-field="quant[@cart.Product.ProductId]">
+                                                                <i class="ti-minus"></i>
+                                                            </button>
+                                                        </div>
+
+                                                        <input id="input-@cart.Product.ProductId" type="text" name="quant[@cart.Product.ProductId]" class="input-number" data-min="1" data-max="100" value="@cart.Quantity">
+
+                                                        <div class="button plus" onclick="PlusQuantityAndTotal(event)" data-id="@cart.Product.ProductId-@startup.StartupId">
+                                                            <button type="button" class="btn btn-primary btn-number" data-type="plus" data-field="quant[@cart.Product.ProductId]">
+                                                                <i class="ti-plus"></i>
+                                                            </button>
+                                                        </div>
+
+
+                                                    </div>
+                                                    <span class="product-total-price" id="total-amount-@cart.Product.ProductId">@((cart.Quantity * cart.Product.Price).ToString("N0"))</span>
+                                                    <a title="Xóa khỏi giỏ hàng" class="remove-btn"><i class="ti-trash" onclick="deleteProductCart(event)" data-id="@cart.Product.ProductId-@startup.StartupId"></i></a>
+                                                </li>
+                                                sumProduct += cart.Quantity * cart.Product.Price;
+                                            }
+                                        }
+                                    </ul>
+
+                                </div>
+
+                                <div class="total-amount">
+                                    <div class="row">
+                                        <div class="col-lg-8 col-md-5 col-12">
+                                            <div class="left">
+                                                <div class="coupon">
+                                                    <form action="#" target="_blank">
+                                                        <input name="Coupon" placeholder="Enter Your Coupon">
+                                                        <button class="btn">Áp dụng</button>
+                                                    </form>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label class="checkbox-inline" for="2"><input name="news" id="2" type="checkbox"> Shipping(+10$)</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-7 col-12">
+                                            <div class="right">
+                                                <ul>
+                                                    <li>Tổng cộng<span id="check-sum-price-all-product-@startup.StartupId">@sumProduct.ToString("N0")</span></li>
+                                                    <li>Phí vận chuyển<span id="price-ship">@(shipPrice.ToString("N0"))</span></li>
+                                                    <li class="last">Bạn phải trả<span id="sum-price-all-product-you-pay-@startup.StartupId">@((sumProduct + shipPrice).ToString("N0"))</span></li>
+                                                </ul>
+                                                <div class="button5">
+                                                    <a href="@Url.Action("Payment", "Order", new { startupId = startup.StartupId, sumProduct = sumProduct + shipPrice})" class="btn">Thanh toán</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    }
+                        <class div="col-12">
+                            <button class="btn btn-warning  mt-3 ml-3" style="background-color:#EC9513"><a href="~/home">Tiếp tục mua hàng</a></button>
+
+                        </class>
+                }
+                else
+                {
+                    <p>Giỏ hàng trống</p>
+                }
+            }
+
+
+        </div>
+		
+	</div>
+</div>
+<!--/ End Shopping Cart -->

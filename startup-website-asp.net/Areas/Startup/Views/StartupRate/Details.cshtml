@@ -1,0 +1,63 @@
+﻿@model startup_website_asp.net.Models.EF.Rate
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Startup/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Chi tiết đánh giá</h2>
+
+<div>
+    <h4>Rate</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            <h1>Thông tin đơn hàng: </h1>
+        </dt>
+        <dt>Mã đơn hàng</dt>
+        <dd>@Model.OrderDetail.OrderDetailId</dd>
+        <dt>
+            <h1>Thông tin sản phẩm: </h1>
+        </dt>
+        <dt>
+            Tên sản phẩm
+        </dt>
+
+        <dd>
+            @Model.Product.Name
+        </dd>
+
+        <dt>
+            Hình ảnh sản phẩm
+        </dt>
+        <dd>
+            <img src="@Model.Product.MainImage" width="150"/>
+        </dd>
+        <dt>Số lượng</dt>
+        <dd>@Model.OrderDetail.Quality</dd>
+        <dt>Tổng giá</dt>
+        <dd>@Model.OrderDetail.TotalPrice</dd>
+
+        <dt>
+            <h1>Thông tin đánh giá: </h1>
+        </dt>
+        <dt>Hình ảnh đánh giá</dt>
+        <dd>
+            @if (Model.ImagesUrl != null)
+            {
+                <img src="@Model.ImagesUrl" />
+            }
+            else
+            {
+                <span>Không có</span>
+            }
+        </dd>
+        <dt>Nội dung đánh giá</dt>
+        <dd>@Model.Content</dd>
+        <dt>Thời gian tạo đánh giá</dt>
+        <dd>@Model.CreatedAt</dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

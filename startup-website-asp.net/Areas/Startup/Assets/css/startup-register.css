@@ -1,0 +1,55 @@
+﻿.wrapper {
+	width: 100vw;
+	height: 100vh;
+	padding: 10px 70px;
+	overflow: hidden;
+}
+
+.right {
+	position: relative;
+}
+
+	.right h1 {
+		font-size: 3em;
+		font-weight: 600;
+		white-space: pre-line;
+	}
+
+.illus {
+	position: absolute;
+	bottom: -30px;
+	left: -50px;
+}
+
+.register-form {
+	background-color: #fff;
+	border-radius: 5px;
+	padding: 30px 25px;
+	box-shadow: 0 5px 5px 0 rgba(0,0,0,0.1)
+}
+
+.btn-register {
+	font-size: 1.2em;
+	height: auto;
+	background-color: #EC9513;
+	color: #fff;
+}
+
+.logo-img {
+	margin-bottom: 1.25em;
+}
+
+	.logo-img input {
+		display: none;
+	}
+
+	.logo-img img {
+		width: 60px;
+		height: 60px;
+		border-radius: 100%;
+		object-fit: cover;
+	}
+
+	.logo-img .btn-change {
+		margin-left: 1.25em;
+	}

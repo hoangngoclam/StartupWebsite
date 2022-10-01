@@ -1,0 +1,153 @@
+﻿@model IEnumerable<startup_website_asp.net.Models.EF.Startup>
+
+@{
+    ViewBag.Title = "Danh Sách Startup";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-header">
+    <div class="row align-items-end">
+        <div class="col-lg-8">
+            <div class="page-header-title">
+                <i class="ik ik-list bg-theme"></i>
+                <div class="d-inline">
+                    <h5>Danh sách Startup</h5>
+                    <p>Thêm, xem, xóa, sửa chi tiết Startup</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <nav class="breadcrumb-container" aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="@Url.Action("Index","Home")"><i class="ik ik-home"></i></a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">Danh sách startup</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header justify-content-between">
+                <div class="col-lg-8 p-0">
+                    <div class="card-search with-adv-search dropdown">
+                        @using (Html.BeginForm("SearchAndFilterStartup", "Startups", FormMethod.Get))
+                        {
+                            <input type="text" class="form-control" value="@ViewBag.SearchValue" placeholder="Tìm kiếm" name="searchValue">
+                            <button type="submit" class="btn btn-icon"><i class="ik ik-search"></i></button>
+                            <button type="button" id="adv_wrap_toggler" class="adv-btn ik ik-chevron-down dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                            <div class="adv-search-wrap dropdown-menu dropdown-menu-right" aria-labelledby="adv_wrap_toggler" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(459px, 30px, 0px);">
+                                <div class="form-group row">
+                                    <label for="inputDateStart" class="col-sm-3 col-form-label">Trạng thái</label>
+                                    <div class="col-sm-9">
+                                        <select class="form-control" name="status" id="exampleFormControlSelect1">
+                                            <option value="" >Tất cả</option>
+
+                                            <option value="Chưa duyệt" >Chưa duyệt</option>
+
+                                            <option value="Bị ẩn" >Bị ẩn</option>
+
+                                            <option value="Đang hoạt động" >Đang hoạt động</option>
+
+                                            <option value="Ngừng Hoạt động" >Ngừng Hoạt động</option>
+
+                                            <option value="Bị Khóa" >Bị Khóa</option>
+
+                                        </select>
+
+                                    </div>
+
+                                </div>
+
+                                <button class="btn btn-theme">Tìm kiếm</button>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <a href="/Admin/AdminStartup/CreateAdminStartup" class="btn btn-primary">Thêm Startup</a>
+            </div>
+            <div class="card-body">
+                <table id="data_table" class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                Tên startup
+                            </th>
+                            <th>
+                                Logo
+                            </th>
+                            <th>
+                                Số điện thoại
+                            </th>
+                            <th>
+                                Trạng thái
+                            </th>
+                            <th>
+
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr id="item-@item.StartupId">
+                                <td>
+                                    @item.Name
+                                </td>
+                                <td>
+                                    <div class="d-inline-block align-middle">
+                                        <img src="@item.LogoUrl" alt="@item.Slogan" class="img-60 align-top">
+                                    </div>
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                                </td>
+                                <td>
+                                    <div class="btn-group float-md-left mr-1 mb-1">
+                                        <button class="btn-status btn " id="status-@item.StartupId" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            @Html.DisplayFor(modelItem => item.Status)
+                                            <i class="ik ik-chevron-down mr-0 align-middle"></i>
+                                        </button>
+
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" data-id="@item.StartupId" data-type="Chưa duyệt" href="#">Chưa duyệt</a>
+                                            <a class="dropdown-item" data-id="@item.StartupId" data-type="Bị ẩn" href="#">Bị ẩn</a>
+                                            <a class="dropdown-item" data-id="@item.StartupId" data-type="Đang hoạt động" href="#">Đang hoạt động</a>
+                                            <a class="dropdown-item" data-id="@item.StartupId" data-type="Ngừng Hoạt động" href="#">Ngừng Hoạt động</a>
+                                            <a class="dropdown-item" data-id="@item.StartupId" data-type="Bị Khóa" href="#">Bị Khóa</a>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="table-actions">
+                                        <a href="/Admin/AdminStartup/DetailAdminStartup/@item.StartupId"><i class="ik ik-eye"></i></a>
+                                        <a href="#" class="delete-startup" data-id="@item.StartupId"><i class="ik ik-trash-2"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section script{
+    <script>
+        $('.dropdown-item').click(function (e) {
+            e.preventDefault();
+            editStatus("POST", "/Admin/AdminStartup/AjaxEditAdminStartup", { id: this.dataset.id, Status: this.dataset.type })
+        })
+        $('.delete-startup').click(function (e) {
+            e.preventDefault();
+            deleteRecord("POST", "/Admin/AdminStartup/AjaxDeleteAdminStartup", { id: this.dataset.id })
+        })
+
+    </script>
+
+    <script src="~/Content/js/Common/actionTable.js"></script>
+}

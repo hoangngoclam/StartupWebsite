@@ -1,0 +1,141 @@
+﻿@model IEnumerable<startup_website_asp.net.Models.EF.ProductCategory>
+@{
+	ViewBag.Title = "Danh Sách Danh Mục";
+	Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div class="page-header">
+	<div class="row align-items-end">
+		<div class="col-lg-8">
+			<div class="page-header-title">
+				<i class="ik ik-inbox bg-blue"></i>
+				<div class="d-inline">
+					<h5>Danh mục sản phẩm trang Web</h5>
+					<p>Thêm, chỉnh sửa danh mục sản phẩm trang Web</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-4">
+			<nav class="breadcrumb-container" aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item">
+						<a href="../index.html"><i class="ik ik-home"></i></a>
+					</li>
+					<li class="breadcrumb-item active">
+						<a href="/Admin/Category/ListWebProductCategory">Quản lý danh mục sản phẩm trang Web</a>
+					</li>
+				</ol>
+			</nav>
+		</div>
+	</div>
+</div>
+@if (TempData["AlertMessage"] != null)
+{
+	<script>
+
+		 function showSuccessToast(x, y) {
+			'use strict';
+			$.toast({
+				heading: x,
+				text: y,
+				showHideTransition: 'slide',
+				icon: x,
+				loaderBg: '#f96868',
+				position: 'top-right'
+			})
+		};
+
+		$(document).ready(function () {
+			showSuccessToast("@TempData["AlertType"]", "@TempData["AlertMessage"]")
+		})
+	</script>
+}
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="card">
+			<div class="card-header justify-content-between">
+				<h3>Danh sách danh mục</h3>
+				<a class="btn btn-primary" href="@Url.Action("CreateProductCategory","AdminProductCategory")">Thêm danh mục</a>
+			</div>
+
+			<div class="card-body">
+				<table id="data_table" class="table">
+					<thead>
+						<tr>
+							<th></th>
+							<th>Danh mục cha</th>
+							<th>Tên danh mục</th>
+							<th class="nosort">Trạng thái</th>
+							<th class="nosort">Thao tác</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach (var item in Model)
+						{
+							<tr id="item-@item.ProductCategoryId">
+								<td></td>
+								<td>
+									
+									@if (item.ParentCategoryId != null)
+									{
+										@Model.ToList().Find(x => x.ProductCategoryId == item.ParentCategoryId).Name
+                                    }
+                                    else
+                                    {
+										<span>#</span>
+                                    }
+								</td>
+								<td>@item.Name</td>
+								<td>
+									<div class="btn-group float-md-left mr-1 mb-1">
+										<button class="btn-status btn " id="status-@item.ProductCategoryId" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											@Html.DisplayFor(modelItem => item.Status)
+											<i class="ik ik-chevron-down mr-0 align-middle"></i>
+										</button>
+										<div class="dropdown-menu">
+											<a class="dropdown-item" data-id="@item.ProductCategoryId" data-type="Ẩn" href="#">Ẩn</a>
+											<a class="dropdown-item" data-id="@item.ProductCategoryId" data-type="Hiện" href="#">Hiện</a>
+										</div>
+									</div>
+								</td>
+								<td>
+									<div class="table-actions">										
+										<a href="@Url.Action("EditProductCategory","AdminProductCategory",new{id = @item.ProductCategoryId})"><i class="ik ik-edit-2"></i></a>
+										<a href="#" class="delete-startup" data-id="@item.ProductCategoryId"><i class="ik ik-trash-2"></i></a>
+									</div>
+								</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+@section script{
+	<script>
+		function showSuccessToast(type, message) {
+			'use strict';
+			$.toast({
+				heading: type,
+				text: message,
+				showHideTransition: 'slide',
+				icon: type,
+				loaderBg: '#f96868',
+				position: 'top-right'
+			})
+		};
+		$('.dropdown-item').click(function (e) {
+			e.preventDefault();
+            editStatus("POST", "/Admin/AdminProductCategory/UpdateStatus", { id: this.dataset.id, Status: this.dataset.type })
+		})
+		$('.delete-startup').click(function (e) {
+			e.preventDefault();
+            deleteRecord("POST", "/Admin/AdminProductCategory/Delete", { id: this.dataset.id })
+		})
+
+	</script>
+
+	<script src="~/Content/js/Common/actionTable.js"></script>
+}
+

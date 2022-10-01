@@ -1,0 +1,118 @@
+﻿
+@{
+    ViewBag.Title = "Danh Sách Tài Khoản";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-header">
+    <div class="row align-items-end">
+        <div class="col-lg-8">
+            <div class="page-header-title">
+                <i class="ik ik-list bg-theme"></i>
+                <div class="d-inline">
+                    <h5>Danh sách tài khoản</h5>
+                    <p>Thêm, xem, xóa, sửa chi tiết tài khoản</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <nav class="breadcrumb-container" aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="/admin/trang-chu"><i class="ik ik-home"></i></a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">Danh sách tài khoản</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header justify-content-between">
+                <div class="col-lg-8 p-0">
+                    <div class="card-search with-adv-search dropdown">
+                        <form action="" class="">
+                            <input type="text" class="form-control" placeholder="Tìm kiếm" required="">
+                            <button type="submit" class="btn btn-icon"><i class="ik ik-search"></i></button>
+                            <button type="button" id="adv_wrap_toggler" class="adv-btn ik ik-chevron-down dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                            <div class="adv-search-wrap dropdown-menu dropdown-menu-right" aria-labelledby="adv_wrap_toggler" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(459px, 30px, 0px);">
+                                <div class="form-group row">
+                                    <label for="inputDateStart" class="col-sm-3 col-form-label">Ngày bắt đầu</label>
+                                    <div class="col-sm-9">
+                                        <input type="datetime-local" class="form-control" id="inputDateStart">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="inputDateEnd" class="col-sm-3 col-form-label">Ngày kết thúc</label>
+                                    <div class="col-sm-9">
+                                        <input type="datetime-local" class="form-control" id="inputDateEnd">
+                                    </div>
+                                </div>
+                                <button class="btn btn-theme">Tìm kiếm</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <a href="@Url.Action("CreateAccount","AdminAccount")"><button class="btn btn-primary" data-toggle="modal" data-target="#addModal">Thêm tài khoản</button></a>
+            </div>
+            <ul class="nav nav-pills custom-pills" id="pills-tab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active show" id="pills-timeline-tab" data-toggle="pill" href="#current-month" role="tab" aria-controls="pills-timeline" aria-selected="true">Tất cả</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#last-month" role="tab" aria-controls="pills-profile" aria-selected="false">Người quản lý</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="pills-setting-tab" data-toggle="pill" href="#previous-month" role="tab" aria-controls="pills-setting" aria-selected="false">Người biết bài</a>
+                </li>
+ 
+            </ul>
+            <div class="card-body">
+                <table id="data_table" class="table">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Họ và tên</th>                           
+                            <th>Email</th>
+                            <th>Số điện thoại</th>
+                            <th>Quyền</th>
+                            <th class="nosort">Trạng thái</th>
+                            <th class="nosort">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>001</td>
+                            <td>Nguyễn Văn A</td>
+                            <td>hanhnv120898@gmail.com</td>
+                            <td>
+                                0384352233
+                            </td>
+                            <td>
+                                <div class="badge badge-pill badge-warning">Người viết bài</div>
+                            </td>
+                            <td>
+                                <select onchange="this.className=this.options[this.selectedIndex].className+' form-control'"
+                                        class="form-control text-success">
+                                    <option selected class="text-success" value="delivered">Hoạt động</option>
+                                    <option class="text-warning" value="delivering">Khóa</option>
+                                </select>
+                            </td>
+                            <td>
+                                <div class="table-actions">
+                                    <a href="@Url.Action("DetailAccount","AdminAccount")"><i class="ik ik-eye"></i></a>
+                                    <a href="@Url.Action("EditAccount","AdminAccount")"><i class="ik ik-edit-2"></i></a>
+                                    <a href="#"><i class="ik ik-trash-2"></i></a>
+
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

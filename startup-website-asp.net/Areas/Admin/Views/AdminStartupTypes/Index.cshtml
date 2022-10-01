@@ -1,0 +1,94 @@
+﻿@model IEnumerable<startup_website_asp.net.Models.EF.StartupType>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-header">
+    <div class="row align-items-end">
+        <div class="col-lg-8">
+            <div class="page-header-title">
+                <i class="ik ik-list bg-theme"></i>
+                <div class="d-inline">
+                    <h5>Danh sách loại startup</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <nav class="breadcrumb-container" aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="@Url.Action("Index","Home")"><i class="ik ik-home"></i></a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">Danh sách loại startup</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header justify-content-between">
+                <h3>Danh sách danh mục</h3>
+                <a class="btn btn-primary" href="@Url.Action("Create","AdminStartupTypes")">Tạo mới</a>
+            </div>
+
+            <div class="card-body">
+                <table id="data_table" class="table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>
+                                Tên
+                            </th>
+                            <th>
+                                MetaTitle
+                            </th>
+                            <th>
+                                Hình ảnh
+                            </th>
+                            <th class="nosort">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr id="item-@item.StartupTypeId">
+                                <td></td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MetaTitle)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ImageUrl)
+                                </td>
+                                <td>
+                                    <div class="table-actions">
+                                        <a href="@Url.Action("Edit","AdminStartupTypes",new{id = @item.StartupTypeId})"><i class="ik ik-edit-2"></i></a>
+                                        <a href="#" class="delete-startup" data-id="@item.StartupTypeId"><i class="ik ik-trash-2"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+@section script{
+    <script>
+		$('.delete-startup').click(function (e) {
+			e.preventDefault();
+            deleteRecord("POST", "/Admin/AdminStartupTypes/Delete", { id: this.dataset.id })
+		})
+
+    </script>
+
+    <script src="~/Content/js/Common/actionTable.js"></script>
+}

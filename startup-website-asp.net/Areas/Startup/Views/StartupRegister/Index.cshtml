@@ -1,0 +1,114 @@
+﻿﻿@model startup_website_asp.net.Models.EF.Startup
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>Đăng Ký Trở Thành Startup</title>
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/png" href="~/Content/images/favicon.png">
+
+	<link href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600,700,800" rel="stylesheet">
+
+	<link rel="stylesheet" href="~/Areas/Admin/Assets/plugins/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="~/Areas/Admin/Assets/plugins/fontawesome-free/css/all.min.css">
+	<link rel="stylesheet" href="~/Areas/Admin/Assets/plugins/ionicons/dist/css/ionicons.min.css">
+	<link rel="stylesheet" href="~/Areas/Admin/Assets/plugins/icon-kit/dist/css/iconkit.min.css">
+	<link rel="stylesheet" href="~/Areas/Admin/Assets/dist/css/theme.min.css">
+
+	<link rel="stylesheet" href="~/Areas/Startup/Assets/css/startup-register.css">
+
+
+</head>
+
+<body>
+	<div class="wrapper bg-light">
+		<div class="row h-100">
+			<div class="d-none d-md-block col-6 right">
+				<h1>
+					Đăng Ký
+					Trở Thành Startup
+				</h1>
+				<p>Đăng ký để doanh nghiệp của bạn được mọi người biết đến, sản phẩm của bạn tiếp cận với nhiều khách hàng</p>
+				<img src="~/Areas/Startup/Assets/images/illus.svg" width="100%" class="illus"/>
+			</div>
+			<div class="col-12 col-md-6">
+				<div class="register-form h-100">
+                    <form action="@Url.Action("Index", "StartupRegister")" method="post" enctype="multipart/form-data">
+                        <div class="logo-img">
+                            <label class="d-block">Hình ảnh logo</label>
+                            <img src="https://i.pinimg.com/564x/23/1d/98/231d989b3a804f70c4c4500cb97545d8.jpg" id="logoImg" alt="">
+                            <div class="d-inline-block">
+                                <input type="file" name="logo" accept="image/*" id="logoInput" onchange="onChangeUploadImage(event)" required>
+                                <button id="btnChange" type="button" class="btn-change btn btn-rounded">Chọn ảnh</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Tên startup</label>
+                            <input type="text" class="form-control" id="name" name="Name" placeholder="Nhập tên startup" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Địa chỉ</label>
+                            <input type="text" class="form-control" id="address" name="Address" placeholder="Nhập địa chỉ" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Số điện thoại</label>
+                            <input type="tel" class="form-control" id="phone" name="PhoneNumber" placeholder="Nhập số điện thoại" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="service">Loại dịch vụ</label>
+
+                            @Html.DropDownList("StartupTypeId", null, htmlAttributes: new { @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            <label for="desc">Mô tả</label>
+                            <textarea class="form-control" id="desc" name="Description" rows="3" required></textarea>
+                        </div>
+                        @if (ViewBag.Error != null)
+                        {
+                            <div class="form-group">
+                                <div class="alert alert-danger">@ViewBag.Error</div>
+                            </div>
+                        }
+                        <button type="submit" class="btn btn-register btn-block">Đăng Ký </button>
+                    </form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			document.getElementById("btnChange").addEventListener("click", function () {
+				document.getElementById("logoInput").click();
+			})			
+		})
+		function onChangeUploadImage(event) {
+			event.preventDefault();
+			var file = event.target.files[0];
+			//Only pictures
+			if (file.type.match('image')) {
+				//Check extend image
+				var fileName = event.target.value;
+				var idxDot = fileName.lastIndexOf(".") + 1;
+				var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
+				if (extFile == "jpg" || extFile == "jpeg" || extFile == "png") {
+					var picReader = new FileReader();
+					picReader.addEventListener("load", function (event) {
+						var img = document.getElementById('logoImg');
+						img.src = event.target.result;
+					});
+					//Read the image
+					picReader.readAsDataURL(file);
+				} else {
+					alert("Định dạng ảnh phải là jpg, jpeg, png");
+				}
+			}
+			else {
+				alert('Định dạng ảnh phải là image')
+			}
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+﻿
+@{
+	ViewBag.Title = "Danh Sách Bài Viết";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+	var startup = ViewBag.startup;
+}
+
+@section css{
+	<link href="~/Content/css/Pages/StartupDetail.css" rel="stylesheet" />
+}
+
+<div class="startup-page">
+	<div class="startup-page-header">
+		<img src="@startup.CoverUrl" alt="startup-cover" />
+		<div class="cover-overlay">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-4 offset-lg-3">
+						<h1>@startup.Name</h1>
+						<div>
+							<span>@@hellostartup</span>&nbsp;•&nbsp;
+							<span><i class="ti-location-pin"></i>&nbsp;@startup.Address</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="startup-info">
+			<div class="container">
+				<div class="row align-items-center">
+					<div class="startup-logo-wrapper col-lg-3">
+						<div class="startup-logo">
+							<img src="@startup.LogoUrl" alt="startup-logo" />
+						</div>
+					</div>
+					<div class="startup-desc col-lg-4">
+						<p>
+							@startup.Slogan
+						</p>
+					</div>
+					<div class="startup-meta col-lg-3">
+						<div>
+							<b>5.0</b>
+							<span>Stars</span>
+						</div>
+						<div>
+							<b>107</b>
+							<span>Followers</span>
+						</div>
+						<div>
+							<b>1998</b>
+							<span>Likes</span>
+						</div>
+					</div>
+					<div class="col-lg-2">
+						<button class="btn btn-primary">Theo dõi</button>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+	<div class="startup-menu">
+		<div class="container">
+			<ul class="startup-menu-list">
+				<li class="startup-menu-item ">
+					<a href="/Startups/StartupDetail/@startup.StartupId">Giới thiệu</a>
+				</li>
+				<li class="startup-menu-item">
+					<a href="/Startups/StartupDetailProducts/@startup.StartupId">Sản phẩm</a>
+				</li>
+				<li class="startup-menu-item active">
+					<a href="/Startups/StartupDetailBlogs/@startup.StartupId">Blog</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="startup-content">
+		<div class="shop-blog">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<div class="row">
+							@for (int i = 0; i < 12; i++)
+								{
+								<div class="col-lg-4 col-md-6 col-12">
+									@RenderPage("~/Views/Shared/Components/BlogItem.cshtml")
+								</div>
+							}						
+
+
+							<div class="col-12">
+								<!-- Pagination -->
+								<div class="pagination center">
+									<ul class="pagination-list">
+										<li><a href="#"><i class="ti-arrow-left"></i></a></li>
+										<li class="active"><a href="#">1</a></li>
+										<li><a href="#">2</a></li>
+										<li><a href="#">3</a></li>
+										<li><a href="#"><i class="ti-arrow-right"></i></a></li>
+									</ul>
+								</div>
+								<!--/ End Pagination -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

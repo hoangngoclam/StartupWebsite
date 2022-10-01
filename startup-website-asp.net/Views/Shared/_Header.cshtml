@@ -1,0 +1,138 @@
+﻿@{
+    var session = (startup_website_asp.net.Common.CustomerLogin)Session[startup_website_asp.net.Common.CommonSession.CUSTOMER_SESSION];
+}
+
+<header class="header shop">
+    <!-- Topbar -->
+    <div class="topbar">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-12 col-12">
+                    <!-- Top Left -->
+                    <div class="top-left">
+                        <ul class="list-main">
+                            <li><i class="ti-headphone-alt"></i> +060 (800) 801-582</li>
+                            <li><i class="ti-email"></i> support@startup.com</li>
+                        </ul>
+                    </div>
+                    <!--/ End Top Left -->
+                </div>
+                <div class="col-lg-8 col-md-12 col-12">
+                    <!-- Top Right -->
+                    <div class="right-content">
+                        <ul class="list-main">
+                            <li><i class="ti-location-pin"></i>123 Phù Đổng Thiên Vương, P8, TP Đà Lạt</li>
+                            @*<li><i class="ti-bell"></i> <a href="#">Thông báo</a></li>*@
+                            @if (session == null)
+                            {
+                                <li><i class="ti-user"></i> <a href="/Account/EditProfileAccount">Tài khoản của tui</a></li>
+                                <li><i class="ti-power-off"></i><a href="/dang-nhap">Đăng nhập</a></li>
+                            }
+                            else
+                            {
+                                <li class="user-name"><i class="ti-user"></i> <a href="/Account/EditProfileAccount">@session.FullName</a></li>
+                                <li><i class="ti-power-off"></i>@Html.ActionLink("Đăng xuất", "Logout", "CustomerLoginAndRegister")</li>
+                            }
+                        </ul>
+                    </div>
+                    <!-- End Top Right -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Topbar -->
+    <div class="middle-inner">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-2 col-md-2 col-12">
+                    <!-- Logo -->
+                    <div class="logo">
+                        <a href="@Url.Action("Index","Home")"><img src="~/Content/images/logo2.png" alt="logo"></a>
+                    </div>
+                    <!--/ End Logo -->
+                    <!-- Search Form -->
+                    <div class="search-top">
+                        <div class="top-search"><a href="#0"><i class="ti-search"></i></a></div>
+                        <!-- Search Form -->
+                        <div class="search-top">
+                            <form class="search-form">
+                                <input type="text" placeholder="Tìm kiếm..." name="Tìm kiếm">
+                                <button value="Tìm kiếm" type="submit"><i class="ti-search"></i></button>
+                            </form>
+                        </div>
+                        <!--/ End Search Form -->
+                    </div>
+                    <!--/ End Search Form -->
+                    <div class="mobile-nav"></div>
+                </div>
+                <div class="col-lg-8 col-md-7 col-12">
+                    <div class="search-bar-top">
+                        <div class="search-bar">
+                            <select>
+                                @*<option selected="selected">Danh mục</option>*@
+                                <option>Sản phẩm </option>
+                            </select>
+                            <form action="@Url.Action("SearchProduct","Product")" method="get">
+                                <input name="search" placeholder="Tìm kiếm..." type="search">
+                                <button type="submit" class="btnn"><i class="ti-search"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-3 col-12">
+                    <div class="right-bar">
+                        <!-- Search Form -->
+                        <div class="sinlge-bar">
+                            <a href="/Account/ProfileAccountfavoriteProducts" class="single-icon"><i class="ti-heart" aria-hidden="true"></i></a>
+                        </div>
+                        <div class="sinlge-bar">
+                            <a href="/Account/EditProfileAccount" class="single-icon"><i class="ti-user" aria-hidden="true"></i></a>
+                        </div>
+                        @{ Html.RenderAction("HeaderCart", "Home");}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header Inner -->
+    <div class="header-inner">
+        <div class="container">
+            <div class="cat-nav-head">
+                <div class="row">
+                    <div class="mx-auto">
+                        <div class="menu-area">
+                            <!-- Main Menu -->
+                            <nav class="navbar navbar-expand-lg">
+                                <div class="navbar-collapse">
+                                    <div class="nav-inner">
+                                        <ul class="nav main-menu menu navbar-nav">
+                                            <li class="active">
+                                                <a href="#">Trang chủ</a>
+                                            </li>
+                                            <li>
+                                                <a href="@Url.Action("ProductList","Product")">Cửa hàng<i class="ti-angle-down"></i><span class="new">New</span></a>
+                                                <ul class="dropdown">
+                                                    @Html.Raw(ViewBag.productCategory)
+                                                </ul>
+                                            </li>
+                                            <li><a href="@Url.Action("StartupList","Startups")">Startup</a></li>
+                                            @*<li><a href="#">Dịch vụ</a></li>*@
+                                            <li>
+                                                <a href="@Url.Action("BlogList","Blogs")">Kiến thức</a>
+                                            </li>
+                                            <li><a href="@Url.Action("Contact","Home")">Liên hệ</a></li>
+                                            <li><a href="@Url.Action("About","Home")">Giới thiệu</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </nav>
+                            <!--/ End Main Menu -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/ End Header Inner -->
+</header>

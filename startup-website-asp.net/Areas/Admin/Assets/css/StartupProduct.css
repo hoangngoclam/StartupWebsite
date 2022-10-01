@@ -1,0 +1,118 @@
+﻿label, .text-bold {
+	font-weight: 600;
+	font-size: 16px;
+}
+
+.text-normal {
+	font-size: 14px;
+	font-weight: normal;
+}
+
+.adding-box {
+	background-color: #efefef;
+	padding: 0;
+	margin-right:15px;
+	width: 150px;
+	height: 150px;
+	font-size: 40px;
+	color: #212121;
+	overflow: hidden;
+	display: flex;
+	position:relative;
+}
+
+	.adding-box::before {
+		content: '+';	
+		font-weight:bold;
+		font-size:40px !important;
+		position: absolute;
+		font-size: 20px;
+		top: 50%;
+		left:50%;
+		transform:translate(-50%,-50%)
+	}
+.adding-box_main {
+	width: 200px;
+	height: 200px;
+}
+.image-upload {
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	/*display:none;*/
+}
+
+.adding-box:hover {
+	background-color: #dee2e6;
+}
+
+.choose-category .categories {
+	height: 300px;
+	border: 1px solid #eaeaea;
+	list-style-type: none;
+	overflow-y: scroll;
+	padding: 10px 0;
+}
+.subImages{
+	display:flex;
+}
+.choose-category .categories li {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 8px 15px;
+	font-size: 14px;
+	cursor: pointer;
+}
+
+.choose-category ul li:hover {
+	background-color: #efefef;
+}
+
+textarea#inputWarranty {
+	width: 50%;
+	height: 100px;
+}
+
+div.child-wrapper .image-wrapper {
+	position: relative;
+	margin-right: 20px;
+	margin-bottom: 20px;
+}
+
+div.child-wrapper .image {
+	width: 150px;
+	height: 150px;
+	object-fit: cover;
+}
+
+#mainImage .adding-box, #mainImage .image {
+	width: 200px;
+	height: 200px;
+}
+#mainImage .image-wrapper::after {
+	content: "Ảnh bìa";
+	width: 100%;
+	height: 30px;
+	background: #2dce89;
+	opacity: .8;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: #fff;
+	font-size: 15px;
+	font-weight: 500;
+}
+
+.btn-delete {
+	border: none;
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	width: 25px;
+	height: 25px;
+	line-height: 25px;
+}

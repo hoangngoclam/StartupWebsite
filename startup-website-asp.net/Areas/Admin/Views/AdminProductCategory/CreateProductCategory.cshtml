@@ -1,0 +1,94 @@
+﻿@model startup_website_asp.net.Models.EF.ProductCategory
+@{
+	ViewBag.Title = "Tạo Danh Mục";
+	Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div class="page-header">
+	<div class="row align-items-end">
+		<div class="col-lg-8">
+			<div class="page-header-title">
+				<i class="ik ik-inbox bg-blue"></i>
+				<div class="d-inline">
+					<h5>Danh mục sản phẩm trang Web</h5>
+					<p>Thêm, chỉnh sửa danh mục sản phẩm trang Web</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-4">
+			<nav class="breadcrumb-container" aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item">
+						<a href="../index.html"><i class="ik ik-home"></i></a>
+					</li>
+					<li class="breadcrumb-item active">
+						<a href="/Admin/Category/ListWebProductCategory">Quản lý danh mục sản phẩm trang Web</a>
+					</li>
+
+				</ol>
+			</nav>
+		</div>
+	</div>
+</div>
+@using (Html.BeginForm())
+{
+	@Html.AntiForgeryToken()
+	<div class="row">
+		<div class="col-md-12">
+			<div class="card">
+				<div class="card-header d-flex justify-content-between align-items-center">
+					<h3>Thêm danh mục</h3>
+
+				</div>
+				<div class="card-body">
+					<form class="forms-sample" action="/Admin/AdminProductCategory/CreateProductCategory" method="post">
+
+						<div class="form-group">
+							<div class="row">
+								<label class="col-md-3 col-lg-2  pr-0" for="ParentCategoryId">Danh mục cha *</label>
+
+								@Html.DropDownListFor(model => model.ParentCategoryId, ViewBag.ParentCategoryId as SelectList, "Select Category", htmlAttributes: new { @class = "form-control col-md-7 col-lg-6 ml-3 mr-3" })
+								@*@Html.DropDownList("ParentCategoryId",ViewBag.ParentCategoryId as SelectList,"--Select--", htmlAttributes: new { @class = "form-control col-md-7 col-lg-6 ml-3 mr-3" })*@
+								@*@Html.DropDownListFor(model => model.ParentCategoryId, ViewBag.ParentCategoryName as SelectList, new { @class = "form-control col-md-7 col-lg-6 ml-3 mr-3" })*@
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="row">
+								<label class="col-md-3 col-lg-2  pr-0" for="Name">Tên danh mục *</label>
+								<input class="col-md-7 col-lg-6 form-control  ml-3 mr-3" type="text" id="Name" name="Name" placeholder="Nhập tên danh mục">
+								
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="row">
+								<label class="col-md-3 col-lg-2  pr-0" for="Status">Trạng thái *</label>								
+								@Html.DropDownListFor(model => model.Status, new SelectList(new string[] { "Ẩn","Hiện" }), new { @class = "form-control col-md-7 col-lg-6 ml-3 mr-3 " })
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="row">
+								<label class="col-md-3 col-lg-2  pr-0" for="MetaTitle">Meta title *</label>
+								<input class="col-md-7 col-lg-6 form-control  ml-3 mr-3" type="text" id="MetaTitle" name="MetaTitle" placeholder="Nhập Meta title">
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="row">
+								<label class="col-md-3 col-lg-2  pr-0" for="SeoTitle">Seo title *</label>
+								<input class="col-md-7 col-lg-6 form-control  ml-3 mr-3" type="text" id="SeoTitle" name="SeoTitle" placeholder="Nhập Seo title">
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="row">
+								<label class="col-md-3 col-lg-2  pr-0" for="DisplayOrder">Display order *</label>
+								<input class="col-md-7 col-lg-6 form-control  ml-3 mr-3" type="text" id="DisplayOrder" name="DisplayOrder" placeholder="Nhập display order">
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="card-footer text-right">
+					<button type="submit" class="btn btn-dark mr-2" style="width:100px">Thêm</button>
+				</div>
+			</div>
+		</div>
+	</div>
+}
+

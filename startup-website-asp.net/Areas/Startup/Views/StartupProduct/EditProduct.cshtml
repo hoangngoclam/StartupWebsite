@@ -1,0 +1,321 @@
+﻿@model startup_website_asp.net.ViewModels.ProductViewModel
+
+@{
+    ViewBag.Title = "Sửa Sản Phẩm";
+    Layout = "~/Areas/Startup/Views/Shared/_Layout.cshtml";
+}
+@section style{
+    <link rel="stylesheet" href="~/Areas/Admin/Assets/plugins/select2/dist/css/select2.min.css">
+    <link rel="stylesheet" href="~/Areas/Admin/Assets/plugins/bootstrap-tagsinput/dist/bootstrap-tagsinput.css">
+    <link rel="stylesheet" href="~/Areas/Admin/Assets/css/StartupProduct.css">
+}
+
+<div class="page-header">
+    <div class="row">
+        <div class="col-lg-5">
+            <div class="page-header-title">
+				<i class="ik ik-shopping-bag bg-blue"></i>
+                <div class="d-inline">
+                    <h5>Quản lý sản phẩm</h5>
+                    <p>Thêm, chỉnh sửa sản phẩm</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-7">
+            <nav class="breadcrumb-container" aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <nav class="breadcrumb-container" aria-label="breadcrumb">
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item">
+								<a href="@Url.Action("Index","Home")"><i class="ik ik-home"></i></a>
+							</li>
+							<li class="breadcrumb-item">Quản lý sản phẩm</li>							
+							<li class="breadcrumb-item active" aria-current="page">Sửa sản phẩm</li>
+						</ol>
+                    </nav>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+@using (Html.BeginForm("EditProduct", "StartupProduct", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.ProductId)
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h3>Chỉnh sửa sản phẩm</h3>
+                    <a href="/chi-tiet-san-pham/@Model.ProductId")" target="_blank">
+                        <span>Xem trên shop</span>
+                        <i class="ik ik-eye ml-1"></i>
+                    </a>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="inputName">Tên sản phẩm</label>
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputName">Seo title</label>
+                        @Html.EditorFor(model => model.SeoTitle, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputName">Danh mục sản phẩm</label>
+                        @Html.DropDownList("ProductCategoryId", null, new { id = "idParentCategory", @class = "form-control" })
+
+                    </div>
+                    <div class="form-group">
+                        <div style="margin-bottom: 1.25em;">
+                            <label>Hình ảnh</label>
+                            <div class="d-flex flex-wrap">
+                                <div class="child-wrapper" id="mainImage">
+                                    <div class="adding-box rounded" style="display:none">
+                                        <input type="file" onchange="onChangeUploadImage(event)" name="mainNewImage" class="image-upload" accept="image/x-png,image/jpeg,image/jpg"/>
+                                    </div>
+                                    <div class="image-wrapper">
+                                        <img id="image" class="image rounded" src="@Model.MainImage" title="">
+                                        <button type="button" onclick="deleteImage(event)" class="btn-delete btn-icon btn-danger">X</button>
+                                    </div>
+                                </div>
+                                <div class="subImages">
+                                    @{
+                                        foreach (string subImage in ViewBag.SubImagesList)
+                                        {
+                                            if (subImage == "''")
+                                            {
+                                                <div class="child-wrapper">
+                                                    <div class="adding-box rounded">
+                                                        <input type="file" onchange="onChangeUploadImage(event)" name="subNewImages" class="image-upload" accept="image/x-png,image/jpeg,image/jpg" />
+                                                    </div>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="child-wrapper">
+                                                    <div class="adding-box rounded" style="display:none">
+                                                        <input type="file" onchange="onChangeUploadImage(event)" value="@subImage" name="subNewImages" class="image-upload" accept="image/x-png,image/jpeg,image/jpg"/>
+                                                    </div>
+                                                    <div class="image-wrapper">
+                                                        <img id="image" class="image rounded" src="@subImage" title="">
+                                                        <button type="button" onclick="deleteImage(event)" class="btn-delete btn-icon btn-danger">X</button>
+                                                    </div>
+                                                </div>
+                                            }
+                                        }
+                                    }
+
+                                </div>
+                                <input id="SubImages" name="SubImages" type="hidden">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="control-label" for="inputPrice">Danh mục bên shop</label>
+                        @Html.DropDownList("StartupCategoryId", null, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                    <div class="form-group  align-items-center">
+                        <label class="control-label" for="inputPrice">Giá</label>
+                        @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                    <div class="form-group  align-items-center">
+                        <label class="control-label">Giá khuyết mãi</label>
+                        @Html.EditorFor(model => model.PromotionPrice, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                    <div class="form-group  align-items-center">
+                        <label class="control-label" for="inputAmount">Số lượng</label>
+                        @Html.EditorFor(model => model.Quality, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                    <div class="form-group  align-items-center">
+                        <p class=" text-bold">Hàng dùng thử</p>
+                        @Html.EditorFor(model => model.isTrial, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+
+                    <div class="form-group">
+                        <label>Chỉnh sửa thuộc tính</label>
+                        <div class="">
+                            <div class="repeater form-inline">
+                                <div data-repeater-list="group-a">
+                                    <div data-repeater-item class="d-flex mb-2">
+                                        <div class="form-group">
+                                            @Html.DropDownList("AttributeId1",null,"-- Chọn thuộc tính sản phẩm --", new { id = "ddl-attribute-id-1", @class = "form-control" })
+                                        </div>
+                                        <div class="form-group">
+                                            <input id="input-attributeId1" type="text" name="ListAttribute" value="" data-role="tagsinput" />
+
+                                        </div>
+                                        <button id="delete-attribute-1" type="button" class="btn btn-danger btn-icon ml-2"><i class="ik ik-trash-2"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-md-12">Gán tất cả</label>
+                                <div class="col-md-12 d-flex align-items-center ">
+                                    <input id="apply-attribute-price" type="number" class="form-control col-md-6 col-sm-12" placeholder="Giá">
+                                    <div class="col-md-2">
+                                        <button id="apply-attribute-btn" type="button" class="btn btn-success mb-1">Áp dụng</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Thuộc tính</th>
+                                        @*<th>Size</th>
+                                        <th>Kho hàng</th>
+                                        <th>SKU</th>*@
+                                        <th>Giá</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="row-table" id="table-attribute">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputDescriptionGilf" class="text-normal">Mô tả</label>
+                        @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputName">Sản phẩm tặng kèm</label>
+                        @*@Html.LabelFor(model => model.ProductCategoryId, "ProductCategoryId", htmlAttributes: new { @class = "control-label col-md-2" })*@
+                        <div class="row">
+                            <div class="col-12 col-md-4">
+                                @Html.DropDownList("GiftId", null, "--Chọn sản phẩm--", new { id = "idGift", @class = "form-control" })
+                            </div>
+                            <div class="col-12">
+                                <div class="ProductGift" style="border: 1px solid #eaeaea; margin-top:10px">
+                                    <div class="row m-0 mr-2" id="idProductGift" style="height:auto">
+                                        <p style="height:100px"></p>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card-footer text-right">
+                    <button type="submit" class="btn btn-dark">Sửa sản phẩm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section script{
+    <script src="~/Areas/Admin/Assets/plugins/select2/dist/js/select2.min.js"></script>
+    <script src="~/Areas/Admin/Assets/plugins/jquery.repeater/jquery.repeater.min.js"></script>
+    <script src="~/Areas/Admin/Assets/plugins/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
+    <script src="~/Content/js/Startup/EditProduct.js"></script>
+    <script>
+        
+function getIdProductFormUrl() {
+    let arrayUrlItem = window.location.href.toString().split(window.location.host)[1].split('/');
+    let productId = arrayUrlItem[arrayUrlItem.length - 1].split('?')[0];
+    return productId;
+}
+
+$(document).ready(function () {
+    $.ajax({
+        url: "/Startup/StartupProduct/ApiGetSubAttribute",
+        type: "GET",
+        data: { ProductId: getIdProductFormUrl()},
+        dataType: "json",
+        success: function (result) {
+            result = JSON.parse(result);
+            $('#input-attributeId1').tagsinput('removeAll');
+            $('#table-attribute').children().remove();// xoa thuoc tinh cu di\
+            //them thuoc tinh moi vo
+            for (var itemSubAttr of result) {
+                $('#input-attributeId1').tagsinput('add', itemSubAttr.Name);
+            }
+            InsertPriceForSubAttribute(result)
+        },
+        error: function (error) {
+            console.log(error)
+        }
+    });
+
+var listSubAttribute1 = [];
+$("#ddl-attribute-id-1").change(function (e) {
+    $.ajax({
+        type: "GET",
+        url: "/startup/StartupProduct/GetListSubAttribute/" + this.value,
+        data: { AttributeId: 1 },
+        dataType: "json",
+        success: function (data) {
+            $('#input-attributeId1').tagsinput('removeAll');
+
+            listSubAttribute1 = data.split(",");
+            listSubAttribute1 = listSubAttribute1.map(item => {
+                let itemSubAttr = item.split("-");
+                return { id: itemSubAttr[0], label: itemSubAttr[1] }
+            })
+            $('#table-attribute').children().remove();// xoa thuoc tinh cu di\
+            //them thuoc tinh moi vo
+            for (var itemSubAttr of listSubAttribute1) {
+                $('#input-attributeId1').tagsinput('add', itemSubAttr.label);
+            }
+
+        },
+        error: function (error) {
+            console.log(error)
+        }
+    });
+});
+function InsertPriceForSubAttribute(listSubAttribute) {
+    for (var itemSubAttr of listSubAttribute) {
+        let text = itemSubAttr.Name.replace(/\s/g, '');
+        $(`#item-table-sub-attr-${text} input`).val(itemSubAttr.price)
+    }
+}
+$('#input-attributeId1').on('beforeItemRemove', function (event) {
+    let text = event.item.replace(/\s/g, '');
+    $(`#item-table-sub-attr-${text}`).remove();
+});
+
+$('#apply-attribute-btn').click(function (e) {
+    e.preventDefault();
+    let price = $('#apply-attribute-price')[0].value;
+    $('.sub-item-attribute').each((index, item) => {
+        item.value = parseInt(price);
+    })
+})
+$('#input-attributeId1').on('beforeItemAdd', function (event) {
+    let findItem = $('#input-attributeId1').tagsinput('items').find(item => item == event.item);
+    let text = event.item.replace(/\s/g, '');
+    if (findItem) {
+        event.cancel = true;
+        return;
+    }
+    else {
+        if ($(`#item-table-sub-attr-${text}`)) {
+            $("#table-attribute").append(`
+                    <tr id='item-table-sub-attr-${text}'>
+                        <td>${event.item}</td>
+                        <td>
+                            <input type='number' name='SubItemPrice' class='form-control sub-item-attribute' placeholder='0' />
+                        </td>
+                    </tr>`
+            )
+        }
+    }
+
+})
+
+
+
+    </script>
+}
+

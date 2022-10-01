@@ -1,0 +1,25 @@
+﻿.login-area, .register-area {
+    background-color: rgb(239, 239, 239);
+    height: 100vh;
+}
+
+.title {
+    color: #3b5998;
+}
+
+.surrounded {
+    border: 1px solid rgb(204, 204, 204);
+    background: rgb(255, 255, 255);
+}
+
+.btn_login_fb, .btn_login_gg {
+    color: white !important;
+    text-align: center !important;
+    margin-top: 15px !important;
+}
+
+.next_to_login, .next_to_register {
+    color: #3b5998;
+}
+
+

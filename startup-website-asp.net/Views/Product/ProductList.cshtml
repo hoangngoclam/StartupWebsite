@@ -1,0 +1,154 @@
+﻿@model IEnumerable<startup_website_asp.net.ViewModels.ProductViewModel>
+@{
+	ViewBag.Title = "Danh Sách Sản Phẩm";
+	var session = (startup_website_asp.net.Common.CustomerLogin)Session[startup_website_asp.net.Common.CommonSession.CUSTOMER_SESSION];
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section css{
+	<link href="~/Content/css/components/product-card.css" rel="stylesheet" />
+}
+<!-- Breadcrumbs -->
+<div class="breadcrumbs">
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="bread-inner">
+					<ul class="bread-list">
+						<li><a href="index1.html">Trang chủ<i class="ti-arrow-right"></i></a></li>
+						<li class="active"><a href="blog-single.html">Cửa hàng</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End Breadcrumbs -->
+<!-- Product Style -->
+<section class="product-area shop-sidebar shop section">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-3 col-md-4 col-12">
+				<div class="shop-sidebar">
+					<!-- Single Widget -->
+					<div class="single-widget category">
+						<h3 class="title">Danh mục sản phẩm</h3>
+						<ul class="categor-list">
+							@Html.Raw(ViewBag.ProductList_Category)
+							@*<li>
+			<a href="javascript:void(0)">
+				Đồ điện tử
+				<ul class="sub-category-2">
+					<li>
+						<a href="javascript:void(0)">
+							Đồ nông sản
+							<ul class="sub-category-2">
+								<li><a href="#">Hoa</a></li>
+								<li><a href="#">Hạt giống</a></li>
+								<li><a href="#">Cây ăn trái</a></li>
+							</ul>
+						</a>
+					</li>
+					<li><a href="#">Thiết bị</a></li>
+				</ul>
+			</a>
+		</li>
+		<li>
+			<a href="javascript:void(0)">
+				Đồ nông sản
+				<ul class="sub-category-2">
+					<li><a href="#">Hoa</a></li>
+					<li><a href="#">Hạt giống</a></li>
+					<li><a href="#">Cây ăn trái</a></li>
+				</ul>
+			</a>
+		</li>
+		<li>
+			<a href="javascript:void(0)">
+				Thời trang
+				<ul class="sub-category-2">
+					<li><a href="#">Quần</a></li>
+					<li><a href="#">Áo sơ mi</a></li>
+					<li><a href="#">Áo khoác</a></li>
+				</ul>
+			</a>
+		</li>*@
+						</ul>
+					</div>
+					<!--/ End Single Widget -->
+					<!-- Shop By Price -->
+					@*<div class="single-widget range">
+						<h3 class="title">Shop by Price</h3>
+						<div class="price-filter">
+							<div class="price-filter-inner">
+								<div id="slider-range" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"><div class="ui-slider-range ui-widget-header ui-corner-all" style="width: 28.4%; left: 24%;"></div><span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 24%;"></span><span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 52.4%;"></span></div>
+								<div class="price_slider_amount">
+									<div class="label-input">
+										<span>Range:</span><input type="text" id="amount" name="price" placeholder="Add Your Price">
+									</div>
+								</div>
+							</div>
+						</div>
+						<ul class="check-box-list">
+							<li>
+								<label class="checkbox-inline" for="1"><input name="news" id="1" type="checkbox">$20 - $50<span class="count">(3)</span></label>
+							</li>
+							<li>
+								<label class="checkbox-inline" for="2"><input name="news" id="2" type="checkbox">$50 - $100<span class="count">(5)</span></label>
+							</li>
+							<li>
+								<label class="checkbox-inline" for="3"><input name="news" id="3" type="checkbox">$100 - $250<span class="count">(8)</span></label>
+							</li>
+						</ul>
+					</div>*@
+					<!--/ End Shop By Price -->
+
+				</div>
+			</div>
+			<div class="col-lg-9 col-md-8 col-12">
+				<div class="row">
+					<div class="col-12">
+						<!-- Shop Top -->
+						<div class="shop-top">
+							<ul class="view-mode">
+								<li class="active"><a href="shop-grid.html">Mới nhất</a></li>
+								<li><a href="shop-list.html">Bán chạy</a></li>
+								<li><a href="shop-list.html">Lượt xem</a></li>
+								<li><a href="shop-list.html">Giá</a></li>
+							</ul>
+						</div>
+						<!--/ End Shop Top -->
+					</div>
+				</div>
+				<div class="row">
+					@foreach (var productItem in Model)
+					{
+					<div class="col-xl-4 col-lg-4 col-md-6 col-12">
+						@RenderPage("~/Views/Shared/Components/ProductListItem.cshtml", new { product = productItem})
+					</div>
+					}
+				</div>
+				<div class="pagination">
+					<ul class="pagination-list">
+						<li><a href="#"><i class="ti-arrow-left"></i></a></li>
+						<li class="active"><a href="#">1</a></li>
+						<li><a href="#">2</a></li>
+						<li><a href="#">3</a></li>
+						<li><a href="#"><i class="ti-arrow-right"></i></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+</section>
+@section js{
+	<script>
+		$(document).ready(function () {
+			$('.sub-category-2').hide();
+
+			$('.categor-list li a').each(function () {
+				$(this).click(function (e) {
+					$(e.target.nextSibling).slideToggle("fast");
+				})
+			});
+		})
+	</script>
+}

@@ -1,0 +1,43 @@
+﻿
+    <div class="app-sidebar colored">
+        <div class="sidebar-header">
+            <a class="header-brand" href="#">
+                <div class="logo-img">
+                    <img src="~/Content/images/logo2.png" width="150" class="header-brand-img" alt="lavalite">
+                </div>
+            </a>
+            <button type="button" class="nav-toggle"><i data-toggle="expanded" class="ik ik-toggle-right toggle-icon"></i></button>
+            <button id="sidebarClose" class="nav-close"><i class="ik ik-x"></i></button>
+        </div>
+
+        <div class="sidebar-content">
+            <div class="nav-container">
+                <nav id="main-menu-navigation" class="navigation-main">
+                    <div class="nav-item has-sub">
+                        <a href="javascript:void(0)"><i class="ik ik-package"></i><span>Quản lý sản phẩm</span></a>
+                        <div class="submenu-content">
+                            <a href="@Url.Action("ListProduct","StartupProduct")" class="menu-item">
+								<i class="ik ik-shopping-bag ik-1x"></i></i><span>Danh sách sản phẩm</span>
+                            </a>
+                            @*<a href="@Url.Action("ListAttribute","StartupAttributeProduct")" class="menu-item">
+                                <i class="ik ik-grid ik-1x"></i><span>Danh sách thuộc tính</span>
+                            </a>*@
+                            <a href="@Url.Action("ListGift","StartupGift")" class="menu-item">
+                                <i class="ik ik-gift ik-1x"></i><span>Danh sách quà tặng</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="nav-item">
+                        <a href="@Url.Action("ListStartupCategory","StartupCategory")">
+                            <i class="ik ik-list"></i><span>Quản lý danh mục shop</span>
+                        </a>
+                    </div>
+                    <div class="nav-item">
+                        <a href="@Url.Action("index","StartupOrder")">
+                            <i class="ik ik-list"></i><span>Quản lý đơn hàng</span>
+                        </a>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>

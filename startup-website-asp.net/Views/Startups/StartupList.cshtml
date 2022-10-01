@@ -1,0 +1,107 @@
+﻿@model PagedList.IPagedList<startup_website_asp.net.ViewModels.StartupViewModel>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Danh Sách Startup";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var listStartup = ViewBag.StartupList;
+    List<startup_website_asp.net.Models.EF.StartupType> startupTypes = ViewBag.StartupTypes;
+}
+<div class="breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="bread-inner">
+                    <ul class="bread-list">
+                        <li><a href="index1.html">Trang chủ<i class="ti-arrow-right"></i></a></li>
+                        <li class="active"><a href="blog-single.html">Danh sách startup</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="section list-startup">
+    <form action="@Url.Action("StartupList","Startups")" method="get" id="FormStartup">
+        <div class="container">
+            <div class="row mx-0">
+                <div class="form-group search-form">
+                    <input name="searchString" placeholder="Tìm kiếm startup..." value="@ViewBag.SearchString" type="search">
+                    <button type="submit" class="btnn"><i class="ti-search"></i></button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <!--  Top -->
+                    <div class="startup-top">
+                        <ul class="view-mode">
+                            <input type="hidden" name="startupFilterBy" value="@ViewBag.StartupFilterType" />
+                            @if (ViewBag.StartupFilterType == startup_website_asp.net.Controllers.StartupFilterType.NumberOfSubscribe)
+                            {
+                                <li class="active"><a href="@Url.Action("StartupList","Startups",new { startupFilterBy = startup_website_asp.net.Controllers.StartupFilterType.NumberOfSubscribe})">Lượt đăng ký</a></li>
+                                <li><a href="@Url.Action("StartupList","Startups",new { startupFilterBy = startup_website_asp.net.Controllers.StartupFilterType.NumberOfProduct})">Số lượng sản phẩm</a></li>
+                            }
+                            else
+                            {
+                                <li><a href="@Url.Action("StartupList","Startups",new { startupFilterBy = startup_website_asp.net.Controllers.StartupFilterType.NumberOfSubscribe})">Lượt đăng ký</a></li>
+                                <li class="active"><a href="@Url.Action("StartupList","Startups",new { startupFilterBy = startup_website_asp.net.Controllers.StartupFilterType.NumberOfProduct})">Số lượng sản phẩm</a></li>
+                            }
+                        </ul>
+                        <div class="startup-shorter">
+                            <div class="single-shorter">
+                                <label>Loại startup: </label>
+                                <form action="" method="get"></form>
+                                <select name="startupTypeFilter" id="StartupTypeFilter">
+                                    <option value="0">Tất cả</option>
+                                    @foreach (var startupTypeItem in startupTypes)
+                                    {
+                                        if (startupTypeItem.StartupTypeId == @ViewBag.StartupTypeFilter)
+                                        {
+                                            <option value="@startupTypeItem.StartupTypeId" selected>@startupTypeItem.Name</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@startupTypeItem.StartupTypeId">@startupTypeItem.Name</option>
+                                        }
+
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/ End Shop Top -->
+                </div>
+            </div>
+            <div class="row">
+                @foreach (var item in Model)
+                {
+                    <div class="col-xl-3 col-lg-4 col-md-4 col-6">
+                        @RenderPage("~/Views/Shared/Components/StartupCard.cshtml", new { modelItem = item })
+                    </div>
+                }
+            </div>
+            <br />
+            Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+            @Html.PagedListPager(Model, page => Url.Action("Index",
+                new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+            @*<div class="pagination">
+                <ul class="pagination-list">
+                    <li><a href="#"><i class="ti-arrow-left"></i></a></li>
+                    <li class="active"><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#"><i class="ti-arrow-right"></i></a></li>
+                </ul>
+            </div>*@
+        </div>
+    </form>
+</div>
+@section js{
+
+    <script>
+        $("#StartupTypeFilter").change(function (e) {
+            e.preventDefault();
+            $("#FormStartup").submit();
+        });
+    </script>
+}  

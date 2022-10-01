@@ -1,0 +1,79 @@
+/* account */
+.avata-account{
+    width: 150px;
+    height:150px;
+    border-radius: 50%;
+    background-image: url(../../images/products/1.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 20px auto 35px;
+}
+.edit-account > .checkout-form{
+    border: 1px solid #eee;
+    padding: 15px;
+}
+.btn-save-info-account{
+    background: var(--main-color-2) !important;
+}
+
+
+.list-menu a li :hover {
+    color: var(--main-color-1);
+    cursor: pointer;
+}
+
+.list-menu a li p {
+    position: relative;
+    display: block;
+    padding-left: 10px;
+    transition: all 0.4s ease;
+    
+}
+
+.list-menu a li p::before {
+    position: absolute;
+    left: 0;
+    top: 4px;
+    content: "";
+    height: 15px;
+    width: 2px;
+    background-color: var(--main-color-1);
+}
+
+
+.list-menu a li .active-link {
+    color: #EC9513 !important;
+}
+/* order */
+.list-order {
+    margin-top: 30px;
+}
+
+.border-order{
+    border: 1px solid #eee !important;
+    margin-bottom: 15px !important;
+    margin-top: 15px !important;
+}
+
+.btn-find-order {
+    border-bottom-right-radius: 0px;
+    border-top-right-radius: 0px;
+    background: var(--main-color-1);
+    margin: 0;
+    padding: 0 20px;
+    border: var(--main-color-2);
+}
+
+.btn-status-order {
+    border-radius: 5px;
+    border: var(--main-color-2);
+    background: var(--main-color-2);
+    padding-right: 5px;
+    padding-left: 5px;
+    width: 19%;
+}
+
+/*Product favorite*/
+.select-menu-category{
+    margin-top:30px;
+}

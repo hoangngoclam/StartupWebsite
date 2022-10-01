@@ -1,0 +1,50 @@
+﻿/*Blog Card*/
+.blog-item {
+	position: relative;
+	z-index: 100;
+}
+
+.blog-thumbnail-wrapper {
+	width: 100%;
+	height: 200px;
+}
+
+.blog-content {
+	width: 90%;
+	position: absolute;
+	top: 160px;
+	padding: 15px 20px;
+	background-color: #fff;
+}
+
+.blog-category {
+	position: relative;
+}
+
+	.blog-category:before {
+		content: "";
+		width: 5px;
+		height: 40px;
+		position: absolute;
+		left: -20px;
+		top: -10px;
+		background-color: var(--main-color-1);
+	}
+
+.blog-title {
+	display:block;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	font-size: 20px;
+	color: var(--main-color-2);
+	font-weight: 600;
+}
+.blog-title:hover{
+	color: var(--main-color-1);
+}
+.blog-date {
+	font-size: 14px;
+	font-weight: 400;
+	margin-bottom: 5px;
+	color: #B7B7B7;
+}

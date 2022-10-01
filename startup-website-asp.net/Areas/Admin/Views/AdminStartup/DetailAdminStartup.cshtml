@@ -1,0 +1,239 @@
+﻿@model startup_website_asp.net.Models.EF.Startup
+
+@{
+    ViewBag.Title = "Chi Tiết Startup";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+    <div class="container-fluid">
+        <div class="page-header">
+            <div class="row align-items-end">
+                <div class="col-lg-8">
+                    <div class="page-header-title">
+                        <i class="ik ik-file-text bg-blue"></i>
+                        <div class="d-inline">
+                            <h5>Chi tiết startup</h5>
+                            <span>@Html.DisplayFor(model => model.Name)</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <nav class="breadcrumb-container" aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="/Admin/Startups/StartupList"><i class="ik ik-home"></i></a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="/Admin/Startups/StartupList">Danh sách startup</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">Xem chi tiết</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4 col-md-5">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="text-center">
+                            <div class="d-inline-block align-middle">
+                                <img src="@Model.LogoUrl" alt="@Model.Slogan" class="img-100 align-center">
+                            </div>
+                            <h4 class="card-title mt-10">@Model.Name</h4>
+                            <p class="card-subtitle">Slogan: @Model.Slogan</p>
+                            @*<div class="row text-center justify-content-md-center">
+            <div class="col-4"><a href="javascript:void(0)" class="link"><i class="ik ik-user"></i> <font class="font-medium">@Model.ViewCount </font></a></div>
+            <div class="col-4"><a href="javascript:void(0)" class="link"><i class="ik ik-image"></i> <font class="font-medium">@Model.SubCount </font></a></div>
+        </div>*@
+                        </div>
+                    </div>
+                    <hr class="mb-0">
+                    <div class="card-body">
+                        @*<small class="text-muted d-block">Email </small>
+        <h6>@Model.Email </h6>*@
+                        <small class="text-muted d-block pt-10">Trạng thái</small>
+                        @switch (Model.Status)
+                        {
+                            case "Chưa duyệt":
+                                <label class="badge badge-warning">
+                                    @Html.DisplayFor(model => model.Status)
+                                </label>
+                                break;
+                            case "Bị ẩn":
+                                <label class="badge badge-white">
+                                    @Html.DisplayFor(model => model.Status)
+                                </label>
+                                break;
+                            case "Đang hoạt động":
+                                <label class="badge badge-success">
+                                    @Html.DisplayFor(model => model.Status)
+                                </label>
+                                break;
+                            case "Ngừng Hoạt động":
+                                <label class="badge badge-muted">
+                                    @Html.DisplayFor(model => model.Status)
+                                </label>
+                                break;
+                            case "Bị Khóa":
+                                <label class="badge badge-danger">
+                                    @Html.DisplayFor(model => model.Status)
+                                </label>
+                                break;
+                            default:
+                                break;
+                        }
+                        <small class="text-muted d-block pt-10">Số điện thoại</small>
+                        <h6>@Model.PhoneNumber</h6>
+                        <small class="text-muted d-block pt-10">Địa chỉ</small>
+                        <h6>@Model.Address</h6>
+                        <small class="text-muted d-block pt-30">Mạng xã hội</small>
+                        <br>
+                        @if (@Model.FanpageLink != null)
+                        {
+                            <a type="button" href="@Model.FanpageLink" class="btn btn-icon btn-facebook"><i class="fab fa-facebook-f"></i></a>
+                        }
+                        @if (@Model.YoutubeLink != null)
+                        {
+                            <a type="button" href="@Model.YoutubeLink" class="btn btn-icon btn-instagram"><i class="fab fa-youtube"></i></a>
+                        }
+                        @if (@Model.InstagramLink != null)
+                        {
+                            <a type="button" href="@Model.InstagramLink" class="btn btn-icon btn-instagram"><i class="fab fa-instagram"></i></a>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-7">
+                <div class="card">
+                    <div class="card-body">
+                        <h5>
+                            Mô tả
+                        </h5>
+                        <div>
+                            @Html.Raw(Model.Description)
+                        </div>
+                        <div>
+                            <span>Ngay tạo: @Model.CreatedAt</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+@*<h2>StartupDetails</h2>
+
+<div>
+    <h4>Startup</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ward.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ward.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LogoUrl)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LogoUrl)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CoverUrl)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CoverUrl)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Slogan)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Slogan)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FanpageLink)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FanpageLink)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.YoutubeLink)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.YoutubeLink)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InstagramLink)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InstagramLink)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedAt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedAt)
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.StartupId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>*@

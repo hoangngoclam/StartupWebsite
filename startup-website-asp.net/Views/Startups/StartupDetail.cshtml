@@ -1,0 +1,120 @@
+﻿@model startup_website_asp.net.ViewModels.StartupViewModel
+@{
+	ViewBag.Title = Model.Name;
+	var startup = ViewBag.startup;
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section css{
+	<link href="~/Content/css/Pages/StartupDetail.css" rel="stylesheet" />
+}
+<div class="startup-page">
+	<div class="startup-page-header">
+		<img src="@Model.CoverUrl" alt="startup-cover" />
+		<div class="cover-overlay">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-4 offset-lg-3">
+						<h1>@Model.Name</h1>
+						<div>
+							<span>@@hellostartup</span>&nbsp;•&nbsp;
+							<span><i class="ti-location-pin"></i>&nbsp;@Model.Address</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="startup-info">
+			<div class="container">
+				<div class="row align-items-center">
+					<div class="startup-logo-wrapper col-lg-3">
+						<div class="startup-logo">
+							<img src="@Model.LogoUrl" alt="startup-logo" />
+						</div>
+					</div>
+					<div class="startup-desc col-lg-4">
+						<p>
+							@Model.Slogan
+						</p>
+					</div>
+					<div class="startup-meta col-lg-3">
+						@*<div>
+							<b>5.0</b>
+							<span>đánh giá</span>
+						</div>*@
+						<div>
+							<b id="numSubscribe">@Model.LikeNumber</b>
+							<span>lượt đăng ký</span>
+						</div>
+						<div>
+							<b>@Model.ProductNumber</b>
+							<span>Sản phẩm</span>
+						</div>
+					</div>
+                    <div class="ml-auto">
+                        @if (Model.IsLike)
+                        {
+							<button class="btn btn-subscribed" data-id="@Model.StartupId" id="btnSubscribe">
+								<i class="ti-check"></i>Đã đăng ký
+							</button>
+                        }
+                        else
+                        {
+                            <button class="btn" id="btnSubscribe"  data-id="@Model.StartupId">
+                                Đăng ký
+                            </button>
+                        }
+
+                    </div>
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+	<div class="startup-menu">
+		<div class="container">
+			<ul class="startup-menu-list">
+				<li class="startup-menu-item active">
+					<a href="/Startups/StartupDetail/@Model.StartupId">Giới thiệu</a>
+				</li>
+				<li class="startup-menu-item">
+					<a href="/Startups/StartupDetailProducts/@Model.StartupId">Sản phẩm</a>
+				</li>
+				@*<li class="startup-menu-item">
+					<a href="/Startups/StartupDetailBlogs/@Model.StartupId">Blog</a>
+				</li>*@
+			</ul>
+		</div>
+	</div>
+	<div class="startup-content">
+		<section class="about-us">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-6 col-12">
+						<div class="about-content">
+							<h3>Chào mừng đến với <span>@Model.Name</span></h3>
+							<p>@Model.Description</p>
+							<div class="button">
+								<a href="/Startups/StartupDetailProducts/@Model.StartupId" class="btn">Cửa hàng</a>
+								@*<a href="contact.html" class="btn">Bài viết</a>*@
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-6 col-12">
+						<div class="about-img overlay">
+							<div class="button">
+								<a href="#" class="video video-popup mfp-iframe"><i class="fa fa-play"></i></a>
+							</div>
+							<img src="@Model.LogoUrl" alt="#">
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+</div>
+
+@section js{
+	<script src="~/Content/js/Pages/StartupDetail.js"></script>
+}

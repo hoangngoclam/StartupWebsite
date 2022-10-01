@@ -1,0 +1,136 @@
+﻿@model startup_website_asp.net.Models.EF.Gift
+@{
+	ViewBag.Title = "Sửa Quà Tặng";
+	Layout = "~/Areas/Startup/Views/Shared/_Layout.cshtml";
+}
+@section style{
+	<link rel="stylesheet" href="~/Areas/Admin/Assets/css/StartupProduct.css">
+}
+<div class="page-header">
+	<div class="row align-items-end">
+		<div class="col-lg-8">
+			<div class="page-header-title">
+				<i class="ik ik-gift bg-blue"></i>
+				<div class="d-inline">
+					<h5>Quản lý quà tặng</h5>
+					<p>Thêm, chỉnh sửa quà tặng</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-4">
+			<nav class="breadcrumb-container" aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item">
+						<a href="@Url.Action("ListGift","StartupGift")"><i class="ik ik-home"></i></a>
+					</li>
+					<li class="breadcrumb-item">
+						<a href="@Url.Action("ListGift","StartupGift")">Quản lý quà tặng</a>
+					</li>
+					<li class="breadcrumb-item active">
+						Sửa quà tặng
+					</li>
+				</ol>
+			</nav>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		@using (Html.BeginForm("EditGift", "StartupGift", FormMethod.Post, new { enctype = "multipart/form-data", id = "formCreate" }))
+		{
+			
+			<div class="card">
+				<div class="card-header ">
+					<h3>Sửa quà tặng</h3>
+				</div>
+				<div class="card-body">
+                    <input type="hidden" name="GiftId" value="@Model.GiftId" />
+						<div class="form-group">
+							<label for="inputName">Tên quà tặng</label>
+							<input type="text" name="Name" class="form-control" id="inputName" placeholder="Nhập tên" value="@Model.Name">
+						</div>
+						<div class="form-group">
+							<div style="margin-bottom: 1.25em;">
+								<label>Hình ảnh</label>
+								<div class="d-flex flex-wrap">
+									<div class="child-wrapper">
+										@if (Model.ImageUrl == null)
+										{
+											<div class="adding-box rounded adding-box_main">
+												<input type="file" name="mainImage" class="image-upload" />
+											</div>
+										}
+										else
+										{
+											<div class="adding-box rounded adding-box_main" style="display:none">
+												<input type="file" name="mainImage" class="image-upload" />
+											</div>
+											<div class="image-wrapper">
+												<img id='image' class='image rounded' src="@Model.ImageUrl" />
+												<button type="button" onclick="deleteImage(event)" class="btn-delete btn-icon btn-danger">X</button>
+											</div>
+										}
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label>Số lượng</label>
+							<input type="number" name="Quality" class="form-control" placeholder="Số lượng" value="@Model.Quality">
+						</div>
+						<div class="form-group">
+							<label>Giá bán</label>
+							<input type="number" name="Price" class="form-control" value="@Model.price" placeholder="Giá bán ngoài thị trường">
+						</div>
+				</div>
+				<div class="card-footer text-right">
+					<a href="@Url.Action("ListGift", "StartupGift")" class="btn btn-secondary mr-2">Hủy</a>
+					<button type="submit" class=" btn btn-dark">Sửa</button>
+				</div>
+			</div>
+		}
+	</div>
+</div>
+@section script{
+
+	<script>
+		if (window.File && window.FileList && window.FileReader) {
+			var fileInputs = document.querySelectorAll(".image-upload");
+			for (var i = 0; i < fileInputs.length; i++) {
+				var input = fileInputs[i];
+				input.addEventListener("change", (event) => {
+					var file = event.target.files[0];
+					console.log(event);
+					var childWrapper = event.path[2];
+					var inputWrapper = event.path[1];
+					////Only pics
+					//if (!file.type.match('image'))
+					//	continue;
+					var picReader = new FileReader();
+					picReader.addEventListener("load", function (event) {
+						var picFile = event.target;
+						createImageThumnail(picFile.result);
+					});
+					//Read the image
+					picReader.readAsDataURL(file);
+				});
+			}
+		}
+		else {
+			alert("Your browser does not support File API");
+		}
+		function deleteImage(event) {
+            document.getElementsByClassName("adding-box_main")[0].style.display = "block";
+			$('.image-wrapper')[0].remove();
+		}
+
+		function createImageThumnail(picUrl) {
+			var div = document.createElement("div");
+			div.classList.add('image-wrapper');
+			var btnDelete = `<button type="button" onclick="deleteImage(event)" class="btn-delete btn-icon btn-danger">X</button>`
+			div.innerHTML = "<img id='image' class='image rounded' src='" + picUrl + "'" + "/>" + btnDelete;
+			document.getElementsByClassName("adding-box_main")[0].style.display = "none";
+			document.getElementsByClassName("child-wrapper")[0].insertBefore(div, null);
+		}
+	</script>
+}
